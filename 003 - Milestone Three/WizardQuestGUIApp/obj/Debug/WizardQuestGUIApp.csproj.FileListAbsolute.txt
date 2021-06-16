@@ -32,3 +32,4 @@ C:\Users\danie\OneDrive\Documents\GitHub\dat602-project\003 - Milestone Three\Wi
 C:\Users\danie\OneDrive\Documents\GitHub\dat602-project\003 - Milestone Three\WizardQuestGUIApp\obj\Debug\WizardQuestGUIApp.csproj.CopyComplete
 C:\Users\danie\OneDrive\Documents\GitHub\dat602-project\003 - Milestone Three\WizardQuestGUIApp\obj\Debug\WizardQuestGUIApp.exe
 C:\Users\danie\OneDrive\Documents\GitHub\dat602-project\003 - Milestone Three\WizardQuestGUIApp\obj\Debug\WizardQuestGUIApp.pdb
+C:\Users\danie\OneDrive\Documents\GitHub\dat602-project\003 - Milestone Three\WizardQuestGUIApp\obj\Debug\WizardQuestGUIApp.RegistrationForm.resources

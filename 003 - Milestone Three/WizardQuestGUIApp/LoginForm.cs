@@ -44,10 +44,15 @@ namespace WizardQuestGUIApp
 
                 if (result == DialogResult.Yes)
                 {
-                    
+                    this.Hide();
+                    RegistrationForm registrationForm = new RegistrationForm(usernameText.Text);
+                    registrationForm.Closed += (s, args) => this.Close();
+                    registrationForm.ShowDialog();
                 }
 
             }
+
+            ClearLogin();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -65,9 +70,11 @@ namespace WizardQuestGUIApp
                 }
                 else if (DataAccess.Status == "Fail")
                 {
-                    MessageBox.Show("Your Wizard Quest account are invalid.", "Invalid Username or Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Your Wizard Quest account details are invalid.", "Invalid Username or Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+            ClearLogin();
 
         }
 

@@ -44,7 +44,7 @@ namespace WizardQuestGUIApp
             // 
             this.wizardQuestLabel.AutoSize = true;
             this.wizardQuestLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wizardQuestLabel.Location = new System.Drawing.Point(74, 15);
+            this.wizardQuestLabel.Location = new System.Drawing.Point(76, 15);
             this.wizardQuestLabel.Name = "wizardQuestLabel";
             this.wizardQuestLabel.Size = new System.Drawing.Size(142, 25);
             this.wizardQuestLabel.TabIndex = 0;
@@ -53,7 +53,7 @@ namespace WizardQuestGUIApp
             // usernameLabel
             // 
             this.usernameLabel.AutoSize = true;
-            this.usernameLabel.Location = new System.Drawing.Point(42, 258);
+            this.usernameLabel.Location = new System.Drawing.Point(44, 258);
             this.usernameLabel.Name = "usernameLabel";
             this.usernameLabel.Size = new System.Drawing.Size(55, 13);
             this.usernameLabel.TabIndex = 1;
@@ -62,7 +62,7 @@ namespace WizardQuestGUIApp
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(44, 307);
+            this.passwordLabel.Location = new System.Drawing.Point(46, 307);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(53, 13);
             this.passwordLabel.TabIndex = 2;
@@ -71,7 +71,7 @@ namespace WizardQuestGUIApp
             // wizardPicture
             // 
             this.wizardPicture.Image = global::WizardQuestGUIApp.Properties.Resources.wizard02;
-            this.wizardPicture.Location = new System.Drawing.Point(45, 60);
+            this.wizardPicture.Location = new System.Drawing.Point(47, 60);
             this.wizardPicture.Name = "wizardPicture";
             this.wizardPicture.Size = new System.Drawing.Size(197, 166);
             this.wizardPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -80,21 +80,21 @@ namespace WizardQuestGUIApp
             // 
             // usernameText
             // 
-            this.usernameText.Location = new System.Drawing.Point(45, 275);
+            this.usernameText.Location = new System.Drawing.Point(47, 275);
             this.usernameText.Name = "usernameText";
             this.usernameText.Size = new System.Drawing.Size(197, 20);
             this.usernameText.TabIndex = 4;
             // 
             // passwordText
             // 
-            this.passwordText.Location = new System.Drawing.Point(45, 324);
+            this.passwordText.Location = new System.Drawing.Point(47, 324);
             this.passwordText.Name = "passwordText";
             this.passwordText.Size = new System.Drawing.Size(197, 20);
             this.passwordText.TabIndex = 5;
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(45, 373);
+            this.deleteButton.Location = new System.Drawing.Point(47, 373);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(94, 23);
             this.deleteButton.TabIndex = 6;
@@ -104,7 +104,7 @@ namespace WizardQuestGUIApp
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(167, 373);
+            this.loginButton.Location = new System.Drawing.Point(169, 373);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(75, 23);
             this.loginButton.TabIndex = 7;
@@ -116,7 +116,7 @@ namespace WizardQuestGUIApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 426);
+            this.ClientSize = new System.Drawing.Size(294, 426);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.passwordText);

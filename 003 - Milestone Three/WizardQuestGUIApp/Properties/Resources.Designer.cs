@@ -63,6 +63,16 @@ namespace WizardQuestGUIApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap wizard01 {
+            get {
+                object obj = ResourceManager.GetObject("wizard01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap wizard02 {
             get {
                 object obj = ResourceManager.GetObject("wizard02", resourceCulture);

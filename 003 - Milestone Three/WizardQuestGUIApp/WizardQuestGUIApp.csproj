@@ -106,6 +106,12 @@
     <Compile Include="QuestSelectionForm.Designer.cs">
       <DependentUpon>QuestSelectionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegistrationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrationForm.Designer.cs">
+      <DependentUpon>RegistrationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="User.cs" />
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -123,6 +129,9 @@
     <EmbeddedResource Include="QuestSelectionForm.resx">
       <DependentUpon>QuestSelectionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RegistrationForm.resx">
+      <DependentUpon>RegistrationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -137,7 +146,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="images\wizard01.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="images\wizard02.jpg" />
   </ItemGroup>
