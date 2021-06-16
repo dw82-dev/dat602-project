@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace WizardQuestGUIApp
 {
-    class Inventory
+    class QuestModel
     {
-        public static Inventory CurrentInventory { get; set; }
-        public string Item;
-        public int Quantity;
+        public static string Username = "";
+        public static string Password = "";
     }
 }

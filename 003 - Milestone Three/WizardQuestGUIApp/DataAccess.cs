@@ -6,18 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WizardQuestConsoleApp
+namespace WizardQuestGUIApp
 {
     class DataAccess
     {
         private static string _connectionString = "Server=localhost;Port=3306;Database=WizardQuest;Uid=wizard;password=55555;";
         private static MySqlConnection _mySqlConnection = null;
-        
+
+        public static string Status = "";
+
         public static MySqlConnection MySqlConnection
         {
             get
             {
-                if(_mySqlConnection == null)
+                if (_mySqlConnection == null)
                 {
                     _mySqlConnection = new MySqlConnection(_connectionString);
                 }
@@ -56,7 +58,7 @@ namespace WizardQuestConsoleApp
             return (userRegistrationDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string UserLogin(string pUserName, string pUserPassword)
+        public void UserLogin(string pUserName, string pUserPassword)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var userName = new MySqlParameter("UserName", MySqlDbType.VarChar, 30);
@@ -67,7 +69,7 @@ namespace WizardQuestConsoleApp
             parameterList.Add(userPassword);
 
             var userLoginDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userLogin(@UserName, @UserPassword)", parameterList.ToArray());
-            return (userLoginDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.Status = (userLoginDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public string UserLogout(string pUserID)
@@ -81,7 +83,7 @@ namespace WizardQuestConsoleApp
             return (userLogoutDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string UserDelete(string pUserName, string pUserPassword)
+        public void UserDelete(string pUserName, string pUserPassword)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var userName = new MySqlParameter("UserName", MySqlDbType.VarChar, 30);
@@ -92,7 +94,7 @@ namespace WizardQuestConsoleApp
             parameterList.Add(userPassword);
 
             var userDeleteDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userDelete(@UserName, @UserPassword)", parameterList.ToArray());
-            return (userDeleteDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.Status = (userDeleteDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public string NewQuest(int pUserID, string pQuestName)
@@ -273,12 +275,12 @@ namespace WizardQuestConsoleApp
 
             var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getUserInventory(@SessionID)", parameterList.ToArray());
             assets = (from result in dataSet.Tables[0].AsEnumerable()
-                     select
-                        new Inventory
-                        {
-                            Item = result.Field<string>("Item"),
-                            Quantity = result.Field<int>("Quantity")
-                        }).ToList();
+                      select
+                         new Inventory
+                         {
+                             Item = result.Field<string>("Item"),
+                             Quantity = result.Field<int>("Quantity")
+                         }).ToList();
             return assets;
         }
 
