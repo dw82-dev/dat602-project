@@ -23,22 +23,24 @@ namespace WizardQuestGUIApp
             DataAccess dataAccess = new DataAccess();
             dataAccess.UserLogin(usernameText.Text, passwordText.Text);
 
-            if (DataAccess.Status == "Success")
+            if (DataAccess.LoginStatus == "Success")
             {
                 MessageBox.Show("Login Success", "Welcome Back", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                QuestSelectionForm questSelectionForm = new QuestSelectionForm();
+                this.Hide();
+                QuestSelectionForm questSelectionForm = new QuestSelectionForm(usernameText.Text);
+                questSelectionForm.Closed += (s, args) => this.Close();
                 questSelectionForm.ShowDialog();
                 
             }
-            else if (DataAccess.Status == "Password")
+            else if (DataAccess.LoginStatus == "Password")
             {
                 MessageBox.Show("Your Wizard Quest password is incorrect, please try again.", "Invalid Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (DataAccess.Status == "Locked")
+            else if (DataAccess.LoginStatus == "Locked")
             {
                 MessageBox.Show("Your Wizard Quest account is locked, please contact administrator.", "Account Locked", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (DataAccess.Status == "Username")
+            else if (DataAccess.LoginStatus == "Username")
             {
                 var result = MessageBox.Show(string.Format($"Wizard Quest username not found. Would you like to register as a new user?"), "New User?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -64,24 +66,24 @@ namespace WizardQuestGUIApp
                 DataAccess dataAccess = new DataAccess();
                 dataAccess.UserDelete(usernameText.Text, passwordText.Text);
 
-                if (DataAccess.Status == "Success")
+                if (DataAccess.LoginStatus == "Success")
                 {
                     MessageBox.Show("Your Wizard Quest account has been deleted.", "Account Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else if (DataAccess.Status == "Fail")
+                else if (DataAccess.LoginStatus == "Fail")
                 {
                     MessageBox.Show("Your Wizard Quest account details are invalid.", "Invalid Username or Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
             ClearLogin();
-
         }
 
         private void ClearLogin()
         {
             this.Controls.Clear();
             this.InitializeComponent();
+            passwordText.PasswordChar = '*';
         }
     }
 }

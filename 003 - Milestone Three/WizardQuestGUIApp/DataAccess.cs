@@ -13,7 +13,8 @@ namespace WizardQuestGUIApp
         private static string _connectionString = "Server=localhost;Port=3306;Database=WizardQuest;Uid=wizard;password=55555;";
         private static MySqlConnection _mySqlConnection = null;
 
-        public static string Status = "";
+        public static string LoginStatus = "";
+        public static string RegistrationStatus = "";
 
         public static MySqlConnection MySqlConnection
         {
@@ -41,7 +42,7 @@ namespace WizardQuestGUIApp
             return (checkUserNameDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string UserRegistration(string pUserName, string pUserPassword, string pEmail)
+        public void UserRegistration(string pUserName, string pUserPassword, string pEmail)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var userName = new MySqlParameter("UserName", MySqlDbType.VarChar, 30);
@@ -55,7 +56,7 @@ namespace WizardQuestGUIApp
             parameterList.Add(email);
 
             var userRegistrationDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userRegistration(@UserName, @UserPassword, @Email)", parameterList.ToArray());
-            return (userRegistrationDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.RegistrationStatus = (userRegistrationDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public void UserLogin(string pUserName, string pUserPassword)
@@ -69,18 +70,18 @@ namespace WizardQuestGUIApp
             parameterList.Add(userPassword);
 
             var userLoginDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userLogin(@UserName, @UserPassword)", parameterList.ToArray());
-            DataAccess.Status = (userLoginDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.LoginStatus = (userLoginDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string UserLogout(string pUserID)
+        public void UserLogout(string pUserName)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
-            var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
-            userID.Value = pUserID;
-            parameterList.Add(userID);
+            var userName = new MySqlParameter("UserName", MySqlDbType.VarChar, 30);
+            userName.Value = pUserName;
+            parameterList.Add(userName);
 
-            var userLogoutDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userLogout(@UserID)", parameterList.ToArray());
-            return (userLogoutDataSet.Tables[0].Rows[0])["message"].ToString();
+            var userLogoutDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userLogout(@UserName)", parameterList.ToArray());
+            DataAccess.LoginStatus = (userLogoutDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public void UserDelete(string pUserName, string pUserPassword)
@@ -94,7 +95,7 @@ namespace WizardQuestGUIApp
             parameterList.Add(userPassword);
 
             var userDeleteDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userDelete(@UserName, @UserPassword)", parameterList.ToArray());
-            DataAccess.Status = (userDeleteDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.LoginStatus = (userDeleteDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public string NewQuest(int pUserID, string pQuestName)
@@ -262,6 +263,22 @@ namespace WizardQuestGUIApp
                             UserName = result.Field<string>("UserName")
                         }).ToList();
             return users;
+        }
+
+        public List<OnlineUser> GetOnlineUsers()
+        {
+            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getOnlineUsers()");
+
+            List<OnlineUser> onlineUserList = new List<OnlineUser>();
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                OnlineUser onlineUser = new OnlineUser();
+                onlineUser.Username = row.Field<string>("Username");
+                onlineUserList.Add(onlineUser);
+            }
+
+            return onlineUserList;
         }
 
         public List<Inventory> GetUserInventory(int pSessionID)
