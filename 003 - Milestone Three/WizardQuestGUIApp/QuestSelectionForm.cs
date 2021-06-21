@@ -14,6 +14,7 @@ namespace WizardQuestGUIApp
     {
         private string _username;
         private List<OnlineUser> onlineUsersDataSource;
+        private List<ActiveQuest> activeQuestDataSource;
 
         public QuestSelectionForm(string username)
         {
@@ -28,6 +29,7 @@ namespace WizardQuestGUIApp
             titleLabel.Text = string.Format("Welcome to Wizard Quest {0}", _username);
 
             OnlineUserList();
+            ActiveQuestList();
         }
 
         private void OnlineUserList()
@@ -38,29 +40,34 @@ namespace WizardQuestGUIApp
             usersOnlineData.DataSource = onlineUsersDataSource;
         }
 
-        private void UserLogout()
+        private void ActiveQuestList()
+        {
+            activeQuestData.DataSource = null;
+            DataAccess dataAccess = new DataAccess();
+            activeQuestDataSource = dataAccess.GetActiveQuest();
+            activeQuestData.DataSource = activeQuestDataSource;
+        }
+
+        private void logoutButton_Click(object sender, EventArgs e)
         {
             DataAccess dataAccess = new DataAccess();
             dataAccess.UserLogout(_username);
 
             if (DataAccess.LoginStatus == "Offline")
             {
-                this.Close();
                 MessageBox.Show("Logout Success", "User Offline", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Hide();
+                LoginForm loginForm = new LoginForm();
+                loginForm.Closed += (s, args) => Close();
+                loginForm.ShowDialog();
             }
-        }
-        private void logoutButton_Click(object sender, EventArgs e)
-        {
-            UserLogout();
-            //this.Hide();
-            LoginForm loginForm = new LoginForm();
-            loginForm.ShowDialog();
         }
 
         private void QuestSelectionForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //this.Hide();
-            UserLogout();
+            DataAccess dataAccess = new DataAccess();
+            dataAccess.UserLogout(_username);
         }
+
     }
 }

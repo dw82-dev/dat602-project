@@ -100,6 +100,7 @@
     <Compile Include="OnlineUser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ActiveQuest.cs" />
     <Compile Include="QuestModel.cs" />
     <Compile Include="QuestSelectionForm.cs">
       <SubType>Form</SubType>

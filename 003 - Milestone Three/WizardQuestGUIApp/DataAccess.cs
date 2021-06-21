@@ -281,6 +281,22 @@ namespace WizardQuestGUIApp
             return onlineUserList;
         }
 
+        public List<ActiveQuest> GetActiveQuest()
+        {
+            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getActiveQuest()");
+
+            List<ActiveQuest> activeQuestList = new List<ActiveQuest>();
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                ActiveQuest activeQuest = new ActiveQuest();
+                activeQuest.QuestName = row.Field<string>("QuestName");
+                activeQuestList.Add(activeQuest);
+            }
+
+            return activeQuestList;
+        }
+
         public List<Inventory> GetUserInventory(int pSessionID)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();

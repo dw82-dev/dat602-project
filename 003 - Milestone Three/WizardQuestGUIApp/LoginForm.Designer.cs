@@ -128,6 +128,7 @@ namespace WizardQuestGUIApp
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "LoginForm";
             this.Text = "Login";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.wizardPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
