@@ -27,10 +27,18 @@ namespace WizardQuestGUIApp
             {
                 MessageBox.Show("Login Success", "Welcome Back", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Hide();
-                QuestSelectionForm questSelectionForm = new QuestSelectionForm(usernameText.Text);
+                QuestSelectionForm questSelectionForm = new QuestSelectionForm(usernameText.Text, false);
                 questSelectionForm.Closed += (s, args) => this.Close();
                 questSelectionForm.ShowDialog();
                 
+            }
+            else if (DataAccess.LoginStatus == "Administrator")
+            {
+                MessageBox.Show("Administration Login Success", "Welcome Back", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Hide();
+                QuestSelectionForm questSelectionForm = new QuestSelectionForm(usernameText.Text, true);
+                questSelectionForm.Closed += (s, args) => this.Close();
+                questSelectionForm.ShowDialog();
             }
             else if (DataAccess.LoginStatus == "Password")
             {

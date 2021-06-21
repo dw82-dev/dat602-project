@@ -244,7 +244,14 @@ begin
 								update tblUser
 								set LoginAttempts = 0, UserOnline = true
 								where UserName = pUserName;
-								select 'Success' as message;
+									if exists	(select UserID
+												from tblUser
+												where UserName = pUserName
+												and Administrator = true) then
+												select 'Administrator' as message;
+									else
+												select 'Success' as message;
+									end if;
 							end if;
                         end if;
 				end;

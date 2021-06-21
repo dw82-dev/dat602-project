@@ -356,19 +356,22 @@ namespace WizardQuestGUIApp
             return assets;
         }
 
-        public List<User> GetHighScores()
+        public List<HighScore> GetHighScores()
         {
-            List<User> users;
-
             var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getHighScores()");
-            users = (from result in dataSet.Tables[0].AsEnumerable()
-                     select
-                        new User
-                        {
-                            UserName = result.Field<string>("UserName"),
-                            TotalScore = result.Field<int>("TotalScore")
-                        }).ToList();
-            return users;
+
+            List<HighScore> highScoreList = new List<HighScore>();
+
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                HighScore highScore = new HighScore();
+                highScore.Username = row.Field<string>("Username");
+                highScore.TotalScore = row.Field<int>("TotalScore");
+                highScoreList.Add(highScore);
+            }
+
+            return highScoreList;
         }
 
     }

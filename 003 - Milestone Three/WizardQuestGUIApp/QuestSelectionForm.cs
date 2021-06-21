@@ -14,14 +14,17 @@ namespace WizardQuestGUIApp
     {
         private string _username;
         private int _userID;
+        private bool _administrator;
         private List<OnlineUser> onlineUsersDataSource;
         private List<ActiveQuest> activeQuestDataSource;
         private List<UserActiveQuest> userActiveQuestDataSource;
+        private List<HighScore> highScoreDataSource;
 
-        public QuestSelectionForm(string username)
+        public QuestSelectionForm(string username, bool administrator)
         {
             InitializeComponent();
             _username = username;
+            _administrator = administrator;
             GetUserID();
             UpdateDisplay();
         }
@@ -31,6 +34,7 @@ namespace WizardQuestGUIApp
         {
             titleLabel.Text = string.Format("Welcome to Wizard Quest {0}", _username);
 
+            HighScoreList();
             OnlineUserList();
             ActiveQuestList();
             UserActiveQuestList();
@@ -41,6 +45,14 @@ namespace WizardQuestGUIApp
             DataAccess dataAccess = new DataAccess();
             dataAccess.GetUserID(_username);
             _userID = Convert.ToInt32(DataAccess.UserID);
+        }
+
+        private void HighScoreList()
+        {
+            highScoreData.DataSource = null;
+            DataAccess dataAccess = new DataAccess();
+            highScoreDataSource = dataAccess.GetHighScores();
+            highScoreData.DataSource = highScoreDataSource;
         }
 
         private void OnlineUserList()
@@ -88,5 +100,16 @@ namespace WizardQuestGUIApp
             dataAccess.UserLogout(_username);
         }
 
+        private void QuestSelectionForm_Load(object sender, EventArgs e)
+        {
+            if (_administrator == true)
+            {
+                administrationButton.Enabled = true;
+            }
+            else if (_administrator == false)
+            {
+                administrationButton.Enabled = false;
+            }
+        }
     }
 }

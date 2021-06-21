@@ -38,9 +38,14 @@ namespace WizardQuestGUIApp
             this.questProgressLabel = new System.Windows.Forms.Label();
             this.savedQuestLabel = new System.Windows.Forms.Label();
             this.administrationButton = new System.Windows.Forms.Button();
+            this.highScoresLabel = new System.Windows.Forms.Label();
+            this.highScoreData = new System.Windows.Forms.DataGridView();
+            this.joinQuestButton = new System.Windows.Forms.Button();
+            this.newQuestButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.usersOnlineData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeQuestData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userQuestData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.highScoreData)).BeginInit();
             this.SuspendLayout();
             // 
             // titleLabel
@@ -66,7 +71,7 @@ namespace WizardQuestGUIApp
             // usersOnlineData
             // 
             this.usersOnlineData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.usersOnlineData.Location = new System.Drawing.Point(27, 140);
+            this.usersOnlineData.Location = new System.Drawing.Point(599, 140);
             this.usersOnlineData.Name = "usersOnlineData";
             this.usersOnlineData.Size = new System.Drawing.Size(170, 330);
             this.usersOnlineData.TabIndex = 2;
@@ -75,7 +80,7 @@ namespace WizardQuestGUIApp
             // 
             this.playersOnlineLabel.AutoSize = true;
             this.playersOnlineLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playersOnlineLabel.Location = new System.Drawing.Point(23, 103);
+            this.playersOnlineLabel.Location = new System.Drawing.Point(595, 117);
             this.playersOnlineLabel.Name = "playersOnlineLabel";
             this.playersOnlineLabel.Size = new System.Drawing.Size(123, 20);
             this.playersOnlineLabel.TabIndex = 3;
@@ -84,7 +89,7 @@ namespace WizardQuestGUIApp
             // activeQuestData
             // 
             this.activeQuestData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.activeQuestData.Location = new System.Drawing.Point(437, 140);
+            this.activeQuestData.Location = new System.Drawing.Point(366, 140);
             this.activeQuestData.Name = "activeQuestData";
             this.activeQuestData.Size = new System.Drawing.Size(170, 139);
             this.activeQuestData.TabIndex = 4;
@@ -92,7 +97,7 @@ namespace WizardQuestGUIApp
             // userQuestData
             // 
             this.userQuestData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.userQuestData.Location = new System.Drawing.Point(437, 331);
+            this.userQuestData.Location = new System.Drawing.Point(366, 331);
             this.userQuestData.Name = "userQuestData";
             this.userQuestData.Size = new System.Drawing.Size(170, 139);
             this.userQuestData.TabIndex = 5;
@@ -101,7 +106,7 @@ namespace WizardQuestGUIApp
             // 
             this.questProgressLabel.AutoSize = true;
             this.questProgressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questProgressLabel.Location = new System.Drawing.Point(433, 103);
+            this.questProgressLabel.Location = new System.Drawing.Point(362, 117);
             this.questProgressLabel.Name = "questProgressLabel";
             this.questProgressLabel.Size = new System.Drawing.Size(161, 20);
             this.questProgressLabel.TabIndex = 6;
@@ -111,7 +116,7 @@ namespace WizardQuestGUIApp
             // 
             this.savedQuestLabel.AutoSize = true;
             this.savedQuestLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.savedQuestLabel.Location = new System.Drawing.Point(433, 308);
+            this.savedQuestLabel.Location = new System.Drawing.Point(362, 308);
             this.savedQuestLabel.Name = "savedQuestLabel";
             this.savedQuestLabel.Size = new System.Drawing.Size(148, 20);
             this.savedQuestLabel.TabIndex = 7;
@@ -119,18 +124,58 @@ namespace WizardQuestGUIApp
             // 
             // administrationButton
             // 
-            this.administrationButton.Location = new System.Drawing.Point(136, 522);
+            this.administrationButton.Location = new System.Drawing.Point(193, 522);
             this.administrationButton.Name = "administrationButton";
             this.administrationButton.Size = new System.Drawing.Size(103, 23);
             this.administrationButton.TabIndex = 8;
             this.administrationButton.Text = "Administration";
             this.administrationButton.UseVisualStyleBackColor = true;
             // 
+            // highScoresLabel
+            // 
+            this.highScoresLabel.AutoSize = true;
+            this.highScoresLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.highScoresLabel.Location = new System.Drawing.Point(23, 117);
+            this.highScoresLabel.Name = "highScoresLabel";
+            this.highScoresLabel.Size = new System.Drawing.Size(107, 20);
+            this.highScoresLabel.TabIndex = 10;
+            this.highScoresLabel.Text = "High Scores";
+            // 
+            // highScoreData
+            // 
+            this.highScoreData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.highScoreData.Location = new System.Drawing.Point(27, 140);
+            this.highScoreData.Name = "highScoreData";
+            this.highScoreData.Size = new System.Drawing.Size(269, 330);
+            this.highScoreData.TabIndex = 9;
+            // 
+            // joinQuestButton
+            // 
+            this.joinQuestButton.Location = new System.Drawing.Point(407, 522);
+            this.joinQuestButton.Name = "joinQuestButton";
+            this.joinQuestButton.Size = new System.Drawing.Size(103, 23);
+            this.joinQuestButton.TabIndex = 11;
+            this.joinQuestButton.Text = "Join Quest";
+            this.joinQuestButton.UseVisualStyleBackColor = true;
+            // 
+            // newQuestButton
+            // 
+            this.newQuestButton.Location = new System.Drawing.Point(666, 522);
+            this.newQuestButton.Name = "newQuestButton";
+            this.newQuestButton.Size = new System.Drawing.Size(103, 23);
+            this.newQuestButton.TabIndex = 12;
+            this.newQuestButton.Text = "New Quest";
+            this.newQuestButton.UseVisualStyleBackColor = true;
+            // 
             // QuestSelectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 570);
+            this.Controls.Add(this.newQuestButton);
+            this.Controls.Add(this.joinQuestButton);
+            this.Controls.Add(this.highScoresLabel);
+            this.Controls.Add(this.highScoreData);
             this.Controls.Add(this.administrationButton);
             this.Controls.Add(this.savedQuestLabel);
             this.Controls.Add(this.questProgressLabel);
@@ -143,9 +188,11 @@ namespace WizardQuestGUIApp
             this.Name = "QuestSelectionForm";
             this.Text = "Quest Selection";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QuestSelectionForm_FormClosing);
+            this.Load += new System.EventHandler(this.QuestSelectionForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.usersOnlineData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeQuestData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userQuestData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.highScoreData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,5 +209,9 @@ namespace WizardQuestGUIApp
         private System.Windows.Forms.Label questProgressLabel;
         private System.Windows.Forms.Label savedQuestLabel;
         private System.Windows.Forms.Button administrationButton;
+        private System.Windows.Forms.Label highScoresLabel;
+        private System.Windows.Forms.DataGridView highScoreData;
+        private System.Windows.Forms.Button joinQuestButton;
+        private System.Windows.Forms.Button newQuestButton;
     }
 }

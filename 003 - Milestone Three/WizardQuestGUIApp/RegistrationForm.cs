@@ -29,7 +29,7 @@ namespace WizardQuestGUIApp
                 {
                     MessageBox.Show("Registration Success", "Welcome To Wizard Quest", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Hide();
-                    QuestSelectionForm questSelectionForm = new QuestSelectionForm(usernameText.Text);
+                    QuestSelectionForm questSelectionForm = new QuestSelectionForm(usernameText.Text, false);
                     questSelectionForm.Closed += (s, args) => this.Close();
                     questSelectionForm.ShowDialog();
                 }
