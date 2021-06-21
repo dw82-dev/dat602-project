@@ -111,5 +111,15 @@ namespace WizardQuestGUIApp
                 administrationButton.Enabled = false;
             }
         }
+
+        private void administrationButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            AdministrationForm administrationForm = new AdministrationForm();
+            administrationForm.QuestSelectionForm = this;
+            this.Visible = false;
+            administrationForm.ShowDialog();
+
+        }
     }
 }

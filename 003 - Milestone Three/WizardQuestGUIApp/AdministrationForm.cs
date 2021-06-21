@@ -12,9 +12,33 @@ namespace WizardQuestGUIApp
 {
     public partial class AdministrationForm : Form
     {
+        public Form QuestSelectionForm { get; set; }
+        private List<ActiveQuest> activeQuestDataSource;
+
         public AdministrationForm()
         {
+            UpdateDisplay();
             InitializeComponent();
+        }
+
+        private void UpdateDisplay()
+        {
+
+        }
+
+        private void ActiveQuestList()
+        {
+            activeQuestData.DataSource = null;
+            DataAccess dataAccess = new DataAccess();
+            activeQuestDataSource = dataAccess.GetActiveQuest(_userID);
+            activeQuestData.DataSource = activeQuestDataSource;
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            this.QuestSelectionForm.Closed += (s, args) => Close();
+            this.QuestSelectionForm.Show();
         }
     }
 }

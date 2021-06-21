@@ -130,6 +130,7 @@ namespace WizardQuestGUIApp
             this.administrationButton.TabIndex = 8;
             this.administrationButton.Text = "Administration";
             this.administrationButton.UseVisualStyleBackColor = true;
+            this.administrationButton.Click += new System.EventHandler(this.administrationButton_Click);
             // 
             // highScoresLabel
             // 
