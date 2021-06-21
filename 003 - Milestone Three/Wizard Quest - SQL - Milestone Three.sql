@@ -1032,6 +1032,16 @@ begin
 end //
 delimiter ;
 
+drop procedure if exists getAdministratorQuest;
+delimiter //
+create procedure getAdministratorQuest()
+begin
+	select QuestName
+    from tblQuest
+    where QuestStatus = true;
+end //
+delimiter ;
+
 drop procedure if exists checkQuest
 delimiter //
 create procedure checkQuest(pUserID int, pQuestID int, pMapID int)

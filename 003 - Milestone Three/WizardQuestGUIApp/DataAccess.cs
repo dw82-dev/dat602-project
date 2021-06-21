@@ -265,27 +265,29 @@ namespace WizardQuestGUIApp
 
         public List<User> GetAllUsers()
         {
-            List<User> users;
+            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getAllUsers()");
 
-            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getAllUsers()");
-            users = (from result in dataSet.Tables[0].AsEnumerable()
-                     select
-                        new User
-                        {
-                            UserName = result.Field<string>("UserName")
-                        }).ToList();
-            return users;
-        }
-
-        public List<OnlineUser> GetOnlineUsers()
-        {
-            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getOnlineUsers()");
-
-            List<OnlineUser> onlineUserList = new List<OnlineUser>();
+            List<User> globalUserList = new List<User>();
 
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
-                OnlineUser onlineUser = new OnlineUser();
+                User globalUser = new User();
+                globalUser.Username = row.Field<string>("Username");
+                globalUserList.Add(globalUser);
+            }
+
+            return globalUserList;
+        }
+
+        public List<User> GetOnlineUsers()
+        {
+            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getOnlineUsers()");
+
+            List<User> onlineUserList = new List<User>();
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                User onlineUser = new User();
                 onlineUser.Username = row.Field<string>("Username");
                 onlineUserList.Add(onlineUser);
             }
@@ -313,6 +315,22 @@ namespace WizardQuestGUIApp
             }
 
             return activeQuestList;
+        }
+
+        public List<ActiveQuest> GetAdministratorQuest()
+        {
+            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getAdministratorQuest()");
+
+            List<ActiveQuest> administratorQuestList = new List<ActiveQuest>();
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                ActiveQuest activeQuest = new ActiveQuest();
+                activeQuest.QuestName = row.Field<string>("QuestName");
+                administratorQuestList.Add(activeQuest);
+            }
+
+            return administratorQuestList;
         }
 
         public List<UserActiveQuest> GetUserActiveQuest(int pUserID)

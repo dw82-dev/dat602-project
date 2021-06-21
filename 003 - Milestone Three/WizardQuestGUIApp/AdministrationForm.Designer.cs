@@ -32,10 +32,10 @@ namespace WizardQuestGUIApp
             this.progressLabel = new System.Windows.Forms.Label();
             this.titleLabel = new System.Windows.Forms.Label();
             this.usersLabel = new System.Windows.Forms.Label();
-            this.allUserData = new System.Windows.Forms.DataGridView();
+            this.gloablUserData = new System.Windows.Forms.DataGridView();
             this.activeQuestData = new System.Windows.Forms.DataGridView();
             this.backButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.allUserData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gloablUserData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeQuestData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,11 +71,11 @@ namespace WizardQuestGUIApp
             // 
             // allUserData
             // 
-            this.allUserData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.allUserData.Location = new System.Drawing.Point(396, 145);
-            this.allUserData.Name = "allUserData";
-            this.allUserData.Size = new System.Drawing.Size(218, 330);
-            this.allUserData.TabIndex = 14;
+            this.gloablUserData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gloablUserData.Location = new System.Drawing.Point(396, 145);
+            this.gloablUserData.Name = "allUserData";
+            this.gloablUserData.Size = new System.Drawing.Size(218, 330);
+            this.gloablUserData.TabIndex = 14;
             // 
             // activeQuestData
             // 
@@ -103,13 +103,13 @@ namespace WizardQuestGUIApp
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.activeQuestData);
             this.Controls.Add(this.usersLabel);
-            this.Controls.Add(this.allUserData);
+            this.Controls.Add(this.gloablUserData);
             this.Controls.Add(this.progressLabel);
             this.Controls.Add(this.titleLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "AdministrationForm";
             this.Text = "AdministrationForm";
-            ((System.ComponentModel.ISupportInitialize)(this.allUserData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gloablUserData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeQuestData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -121,7 +121,7 @@ namespace WizardQuestGUIApp
         private System.Windows.Forms.Label progressLabel;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Label usersLabel;
-        private System.Windows.Forms.DataGridView allUserData;
+        private System.Windows.Forms.DataGridView gloablUserData;
         private System.Windows.Forms.DataGridView activeQuestData;
         private System.Windows.Forms.Button backButton;
     }

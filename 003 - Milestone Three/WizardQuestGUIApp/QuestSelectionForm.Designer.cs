@@ -31,7 +31,7 @@ namespace WizardQuestGUIApp
         {
             this.titleLabel = new System.Windows.Forms.Label();
             this.logoutButton = new System.Windows.Forms.Button();
-            this.usersOnlineData = new System.Windows.Forms.DataGridView();
+            this.userOnlineData = new System.Windows.Forms.DataGridView();
             this.playersOnlineLabel = new System.Windows.Forms.Label();
             this.activeQuestData = new System.Windows.Forms.DataGridView();
             this.userQuestData = new System.Windows.Forms.DataGridView();
@@ -42,7 +42,7 @@ namespace WizardQuestGUIApp
             this.highScoreData = new System.Windows.Forms.DataGridView();
             this.joinQuestButton = new System.Windows.Forms.Button();
             this.newQuestButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.usersOnlineData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userOnlineData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeQuestData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userQuestData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.highScoreData)).BeginInit();
@@ -70,11 +70,11 @@ namespace WizardQuestGUIApp
             // 
             // usersOnlineData
             // 
-            this.usersOnlineData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.usersOnlineData.Location = new System.Drawing.Point(599, 140);
-            this.usersOnlineData.Name = "usersOnlineData";
-            this.usersOnlineData.Size = new System.Drawing.Size(170, 330);
-            this.usersOnlineData.TabIndex = 2;
+            this.userOnlineData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.userOnlineData.Location = new System.Drawing.Point(599, 140);
+            this.userOnlineData.Name = "usersOnlineData";
+            this.userOnlineData.Size = new System.Drawing.Size(170, 330);
+            this.userOnlineData.TabIndex = 2;
             // 
             // playersOnlineLabel
             // 
@@ -183,14 +183,14 @@ namespace WizardQuestGUIApp
             this.Controls.Add(this.userQuestData);
             this.Controls.Add(this.activeQuestData);
             this.Controls.Add(this.playersOnlineLabel);
-            this.Controls.Add(this.usersOnlineData);
+            this.Controls.Add(this.userOnlineData);
             this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.titleLabel);
             this.Name = "QuestSelectionForm";
             this.Text = "Quest Selection";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QuestSelectionForm_FormClosing);
             this.Load += new System.EventHandler(this.QuestSelectionForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.usersOnlineData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userOnlineData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeQuestData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userQuestData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.highScoreData)).EndInit();
@@ -203,7 +203,7 @@ namespace WizardQuestGUIApp
 
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Button logoutButton;
-        private System.Windows.Forms.DataGridView usersOnlineData;
+        private System.Windows.Forms.DataGridView userOnlineData;
         private System.Windows.Forms.Label playersOnlineLabel;
         private System.Windows.Forms.DataGridView activeQuestData;
         private System.Windows.Forms.DataGridView userQuestData;

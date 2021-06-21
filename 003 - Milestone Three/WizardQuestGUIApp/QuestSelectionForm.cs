@@ -15,7 +15,7 @@ namespace WizardQuestGUIApp
         private string _username;
         private int _userID;
         private bool _administrator;
-        private List<OnlineUser> onlineUsersDataSource;
+        private List<User> onlineUserDataSource;
         private List<ActiveQuest> activeQuestDataSource;
         private List<UserActiveQuest> userActiveQuestDataSource;
         private List<HighScore> highScoreDataSource;
@@ -57,10 +57,10 @@ namespace WizardQuestGUIApp
 
         private void OnlineUserList()
         {
-            usersOnlineData.DataSource = null;
+            userOnlineData.DataSource = null;
             DataAccess dataAccess = new DataAccess();
-            onlineUsersDataSource = dataAccess.GetOnlineUsers();
-            usersOnlineData.DataSource = onlineUsersDataSource;
+            onlineUserDataSource = dataAccess.GetOnlineUsers();
+            userOnlineData.DataSource = onlineUserDataSource;
         }
 
         private void ActiveQuestList()

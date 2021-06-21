@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WizardQuestGUIApp
 {
-    public class OnlineUser
+    public class User
     {
         private string _username;
 
