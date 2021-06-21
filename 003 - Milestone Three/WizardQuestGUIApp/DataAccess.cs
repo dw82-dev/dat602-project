@@ -15,6 +15,7 @@ namespace WizardQuestGUIApp
 
         public static string LoginStatus = "";
         public static string RegistrationStatus = "";
+        public static string UserID;
 
         public static MySqlConnection MySqlConnection
         {
@@ -57,6 +58,17 @@ namespace WizardQuestGUIApp
 
             var userRegistrationDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userRegistration(@UserName, @UserPassword, @Email)", parameterList.ToArray());
             DataAccess.RegistrationStatus = (userRegistrationDataSet.Tables[0].Rows[0])["message"].ToString();
+        }
+
+        public void GetUserID(string pUserName)
+        {
+            List<MySqlParameter> parameterList = new List<MySqlParameter>();
+            var userName = new MySqlParameter("UserName", MySqlDbType.VarChar, 30);
+            userName.Value = pUserName;
+            parameterList.Add(userName);
+
+            var getUserIDDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getUserID(@UserName)", parameterList.ToArray());
+            DataAccess.UserID = (getUserIDDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public void UserLogin(string pUserName, string pUserPassword)
@@ -281,9 +293,15 @@ namespace WizardQuestGUIApp
             return onlineUserList;
         }
 
-        public List<ActiveQuest> GetActiveQuest()
+        public List<ActiveQuest> GetActiveQuest(int pUserID)
         {
-            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getActiveQuest()");
+            List<MySqlParameter> parameterList = new List<MySqlParameter>();
+
+            var userID = new MySqlParameter("@UserID", MySqlDbType.Int16);
+            userID.Value = pUserID;
+            parameterList.Add(userID);
+
+            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getActiveQuest(@UserID)", parameterList.ToArray());
 
             List<ActiveQuest> activeQuestList = new List<ActiveQuest>();
 
@@ -295,6 +313,27 @@ namespace WizardQuestGUIApp
             }
 
             return activeQuestList;
+        }
+
+        public List<UserActiveQuest> GetUserActiveQuest(int pUserID)
+        {
+            List<MySqlParameter> parameterList = new List<MySqlParameter>();
+            List<UserActiveQuest> userActiveQuestList = new List<UserActiveQuest>();
+
+            var userID = new MySqlParameter("@UserID", MySqlDbType.Int16);
+            userID.Value = pUserID;
+            parameterList.Add(userID);
+
+            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getUserActiveQuest(@UserID)", parameterList.ToArray());
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                UserActiveQuest userActiveQuest = new UserActiveQuest();
+                userActiveQuest.QuestName = row.Field<string>("QuestName");
+                userActiveQuestList.Add(userActiveQuest);
+            }
+
+            return userActiveQuestList;
         }
 
         public List<Inventory> GetUserInventory(int pSessionID)

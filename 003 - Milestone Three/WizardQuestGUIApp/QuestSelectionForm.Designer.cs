@@ -37,6 +37,7 @@ namespace WizardQuestGUIApp
             this.userQuestData = new System.Windows.Forms.DataGridView();
             this.questProgressLabel = new System.Windows.Forms.Label();
             this.savedQuestLabel = new System.Windows.Forms.Label();
+            this.administrationButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.usersOnlineData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeQuestData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userQuestData)).BeginInit();
@@ -56,7 +57,7 @@ namespace WizardQuestGUIApp
             // 
             this.logoutButton.Location = new System.Drawing.Point(27, 522);
             this.logoutButton.Name = "logoutButton";
-            this.logoutButton.Size = new System.Drawing.Size(75, 23);
+            this.logoutButton.Size = new System.Drawing.Size(103, 23);
             this.logoutButton.TabIndex = 1;
             this.logoutButton.Text = "Logout";
             this.logoutButton.UseVisualStyleBackColor = true;
@@ -102,9 +103,9 @@ namespace WizardQuestGUIApp
             this.questProgressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.questProgressLabel.Location = new System.Drawing.Point(433, 103);
             this.questProgressLabel.Name = "questProgressLabel";
-            this.questProgressLabel.Size = new System.Drawing.Size(152, 20);
+            this.questProgressLabel.Size = new System.Drawing.Size(161, 20);
             this.questProgressLabel.TabIndex = 6;
-            this.questProgressLabel.Text = "Quest in Progress";
+            this.questProgressLabel.Text = "Quests in Progress";
             // 
             // savedQuestLabel
             // 
@@ -116,11 +117,21 @@ namespace WizardQuestGUIApp
             this.savedQuestLabel.TabIndex = 7;
             this.savedQuestLabel.Text = "My Saved Quests";
             // 
+            // administrationButton
+            // 
+            this.administrationButton.Location = new System.Drawing.Point(136, 522);
+            this.administrationButton.Name = "administrationButton";
+            this.administrationButton.Size = new System.Drawing.Size(103, 23);
+            this.administrationButton.TabIndex = 8;
+            this.administrationButton.Text = "Administration";
+            this.administrationButton.UseVisualStyleBackColor = true;
+            // 
             // QuestSelectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 570);
+            this.Controls.Add(this.administrationButton);
             this.Controls.Add(this.savedQuestLabel);
             this.Controls.Add(this.questProgressLabel);
             this.Controls.Add(this.userQuestData);
@@ -150,5 +161,6 @@ namespace WizardQuestGUIApp
         private System.Windows.Forms.DataGridView userQuestData;
         private System.Windows.Forms.Label questProgressLabel;
         private System.Windows.Forms.Label savedQuestLabel;
+        private System.Windows.Forms.Button administrationButton;
     }
 }

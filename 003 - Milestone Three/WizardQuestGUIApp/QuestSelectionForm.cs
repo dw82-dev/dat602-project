@@ -13,13 +13,16 @@ namespace WizardQuestGUIApp
     public partial class QuestSelectionForm : Form
     {
         private string _username;
+        private int _userID;
         private List<OnlineUser> onlineUsersDataSource;
         private List<ActiveQuest> activeQuestDataSource;
+        private List<UserActiveQuest> userActiveQuestDataSource;
 
         public QuestSelectionForm(string username)
         {
             InitializeComponent();
             _username = username;
+            GetUserID();
             UpdateDisplay();
         }
 
@@ -30,6 +33,14 @@ namespace WizardQuestGUIApp
 
             OnlineUserList();
             ActiveQuestList();
+            UserActiveQuestList();
+        }
+
+        private void GetUserID()
+        {
+            DataAccess dataAccess = new DataAccess();
+            dataAccess.GetUserID(_username);
+            _userID = Convert.ToInt32(DataAccess.UserID);
         }
 
         private void OnlineUserList()
@@ -44,8 +55,16 @@ namespace WizardQuestGUIApp
         {
             activeQuestData.DataSource = null;
             DataAccess dataAccess = new DataAccess();
-            activeQuestDataSource = dataAccess.GetActiveQuest();
+            activeQuestDataSource = dataAccess.GetActiveQuest(_userID);
             activeQuestData.DataSource = activeQuestDataSource;
+        }
+
+        private void UserActiveQuestList()
+        {
+            userQuestData.DataSource = null;
+            DataAccess dataAccess = new DataAccess();
+            userActiveQuestDataSource = dataAccess.GetUserActiveQuest(_userID);
+            userQuestData.DataSource = userActiveQuestDataSource;
         }
 
         private void logoutButton_Click(object sender, EventArgs e)
