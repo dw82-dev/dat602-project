@@ -15,7 +15,7 @@ namespace WizardQuestGUIApp
         private string _username;
         private int _userID;
         private bool _administrator;
-        private List<User> onlineUserDataSource;
+        private List<UserView> onlineUserDataSource;
         private List<ActiveQuest> activeQuestDataSource;
         private List<UserActiveQuest> userActiveQuestDataSource;
         private List<HighScore> highScoreDataSource;

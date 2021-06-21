@@ -263,15 +263,15 @@ namespace WizardQuestGUIApp
             return (administratorKillDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public List<User> GetAllUsers()
+        public List<UserView> GetAllUsers()
         {
             var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getAllUsers()");
 
-            List<User> globalUserList = new List<User>();
+            List<UserView> globalUserList = new List<UserView>();
 
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
-                User globalUser = new User();
+                UserView globalUser = new UserView();
                 globalUser.Username = row.Field<string>("Username");
                 globalUserList.Add(globalUser);
             }
@@ -279,15 +279,15 @@ namespace WizardQuestGUIApp
             return globalUserList;
         }
 
-        public List<User> GetOnlineUsers()
+        public List<UserView> GetOnlineUsers()
         {
             var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getOnlineUsers()");
 
-            List<User> onlineUserList = new List<User>();
+            List<UserView> onlineUserList = new List<UserView>();
 
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
-                User onlineUser = new User();
+                UserView onlineUser = new UserView();
                 onlineUser.Username = row.Field<string>("Username");
                 onlineUserList.Add(onlineUser);
             }

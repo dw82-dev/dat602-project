@@ -35,6 +35,10 @@ namespace WizardQuestGUIApp
             this.gloablUserData = new System.Windows.Forms.DataGridView();
             this.activeQuestData = new System.Windows.Forms.DataGridView();
             this.backButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gloablUserData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeQuestData)).BeginInit();
             this.SuspendLayout();
@@ -63,18 +67,18 @@ namespace WizardQuestGUIApp
             // 
             this.usersLabel.AutoSize = true;
             this.usersLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usersLabel.Location = new System.Drawing.Point(392, 122);
+            this.usersLabel.Location = new System.Drawing.Point(282, 122);
             this.usersLabel.Name = "usersLabel";
             this.usersLabel.Size = new System.Drawing.Size(169, 20);
             this.usersLabel.TabIndex = 15;
             this.usersLabel.Text = "Wizard Quest Users";
             // 
-            // allUserData
+            // gloablUserData
             // 
             this.gloablUserData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gloablUserData.Location = new System.Drawing.Point(396, 145);
-            this.gloablUserData.Name = "allUserData";
-            this.gloablUserData.Size = new System.Drawing.Size(218, 330);
+            this.gloablUserData.Location = new System.Drawing.Point(286, 145);
+            this.gloablUserData.Name = "gloablUserData";
+            this.gloablUserData.Size = new System.Drawing.Size(203, 330);
             this.gloablUserData.TabIndex = 14;
             // 
             // activeQuestData
@@ -95,11 +99,51 @@ namespace WizardQuestGUIApp
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(141, 509);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 23);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "Kill Quest";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(518, 145);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(103, 23);
+            this.button2.TabIndex = 19;
+            this.button2.Text = "New";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(518, 192);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(103, 23);
+            this.button3.TabIndex = 20;
+            this.button3.Text = "Modify";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(518, 239);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(103, 23);
+            this.button4.TabIndex = 21;
+            this.button4.Text = "Delete";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
             // AdministrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(644, 631);
+            this.ClientSize = new System.Drawing.Size(644, 553);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.activeQuestData);
             this.Controls.Add(this.usersLabel);
@@ -108,7 +152,8 @@ namespace WizardQuestGUIApp
             this.Controls.Add(this.titleLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "AdministrationForm";
-            this.Text = "AdministrationForm";
+            this.Text = "Wizard Quest Administration";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AdministrationForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.gloablUserData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeQuestData)).EndInit();
             this.ResumeLayout(false);
@@ -124,5 +169,9 @@ namespace WizardQuestGUIApp
         private System.Windows.Forms.DataGridView gloablUserData;
         private System.Windows.Forms.DataGridView activeQuestData;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
     }
 }

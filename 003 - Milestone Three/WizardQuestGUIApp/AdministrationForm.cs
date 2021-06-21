@@ -14,7 +14,7 @@ namespace WizardQuestGUIApp
     {
         public Form QuestSelectionForm { get; set; }
         private List<ActiveQuest> activeQuestDataSource;
-        private List<User> globalUsersDataSource;
+        private List<UserView> globalUsersDataSource;
 
         public AdministrationForm()
         {
@@ -48,6 +48,11 @@ namespace WizardQuestGUIApp
         {
             this.Hide();
             this.QuestSelectionForm.Closed += (s, args) => Close();
+            this.QuestSelectionForm.Show();
+        }
+
+        private void AdministrationForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
             this.QuestSelectionForm.Show();
         }
     }
