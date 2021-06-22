@@ -68,11 +68,11 @@ namespace WizardQuestGUIApp
             this.logoutButton.UseVisualStyleBackColor = true;
             this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
             // 
-            // usersOnlineData
+            // userOnlineData
             // 
             this.userOnlineData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.userOnlineData.Location = new System.Drawing.Point(599, 140);
-            this.userOnlineData.Name = "usersOnlineData";
+            this.userOnlineData.Name = "userOnlineData";
             this.userOnlineData.Size = new System.Drawing.Size(170, 330);
             this.userOnlineData.TabIndex = 2;
             // 
@@ -158,6 +158,7 @@ namespace WizardQuestGUIApp
             this.joinQuestButton.TabIndex = 11;
             this.joinQuestButton.Text = "Join Quest";
             this.joinQuestButton.UseVisualStyleBackColor = true;
+            this.joinQuestButton.Click += new System.EventHandler(this.joinQuestButton_Click);
             // 
             // newQuestButton
             // 
@@ -167,6 +168,7 @@ namespace WizardQuestGUIApp
             this.newQuestButton.TabIndex = 12;
             this.newQuestButton.Text = "New Quest";
             this.newQuestButton.UseVisualStyleBackColor = true;
+            this.newQuestButton.Click += new System.EventHandler(this.newQuestButton_Click);
             // 
             // QuestSelectionForm
             // 

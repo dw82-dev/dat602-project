@@ -323,7 +323,7 @@ begin
 				from tblQuest
                 where QuestName = pQuestName) then
                 
-                select 'Invalid Quest Name' as message;
+                select 'Invalid' as message;
 	else
 				-- creates quest
 				insert into tblQuest(QuestName, MaxUsers, ActivePlayer, QuestStatus)
@@ -403,7 +403,7 @@ begin
 					set assetType = assetType + 1;
 				end while;
 				
-				select 'New Quest Active' as message;
+				select 'Success' as message;
 	end if;
 end //
 delimiter ;

@@ -95,6 +95,12 @@
     <Compile Include="AdministrationForm.Designer.cs">
       <DependentUpon>AdministrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewQuestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewQuestForm.Designer.cs">
+      <DependentUpon>NewQuestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="User.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="HighScore.cs" />
@@ -133,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewQuestForm.resx">
+      <DependentUpon>NewQuestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

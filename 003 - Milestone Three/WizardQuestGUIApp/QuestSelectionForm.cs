@@ -83,6 +83,21 @@ namespace WizardQuestGUIApp
             userQuestData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
+        private void NewQuest(string questName)
+        {
+            DataAccess dataAccess = new DataAccess();
+            dataAccess.NewQuest(_userID, questName);
+
+            if (DataAccess.QuestStatus == "Success")
+            {
+                MessageBox.Show("Quest Creation Success", "New Quest Active", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (DataAccess.QuestStatus == "Invalid")
+            {
+                MessageBox.Show("Your Wizard Quest Quest Name is invalid, please try again.", "Invalid Quest Name", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void logoutButton_Click(object sender, EventArgs e)
         {
             DataAccess dataAccess = new DataAccess();
@@ -123,6 +138,28 @@ namespace WizardQuestGUIApp
             administrationForm.QuestSelectionForm = this;
             this.Visible = false;
             administrationForm.ShowDialog();
+        }
+
+        private void newQuestButton_Click(object sender, EventArgs e)
+        {
+            //InputDialogForm questDialog = new InputDialogForm("New Quest Name", "Enter a name for your new quest", "");
+            //if (questDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    string questName = questDialog.ResultText;
+            //    //questDialog.Close();
+            //    //NewQuest(questName);
+            //}
+
+            NewQuestForm newQuestForm = new NewQuestForm();
+            if (newQuestForm.ShowDialog() == DialogResult.OK)
+            {
+                string questName = newQuestForm.NewQuestName;
+                NewQuest(questName);
+            }
+        }
+
+        private void joinQuestButton_Click(object sender, EventArgs e)
+        {
 
         }
     }

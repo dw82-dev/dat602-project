@@ -17,6 +17,7 @@ namespace WizardQuestGUIApp
         public static string RegistrationStatus = "";
         public static string UserID;
         public static string AdministrationStatus = "";
+        public static string QuestStatus = "";
 
         public static MySqlConnection MySqlConnection
         {
@@ -111,7 +112,7 @@ namespace WizardQuestGUIApp
             DataAccess.LoginStatus = (userDeleteDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string NewQuest(int pUserID, string pQuestName)
+        public void NewQuest(int pUserID, string pQuestName)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
@@ -122,7 +123,7 @@ namespace WizardQuestGUIApp
             parameterList.Add(questName);
 
             var newQuestDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call newQuest(@UserID, @QuestName)", parameterList.ToArray());
-            return (newQuestDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.QuestStatus = (newQuestDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public string JoinQuest(int pUserID, int pQuestID)
