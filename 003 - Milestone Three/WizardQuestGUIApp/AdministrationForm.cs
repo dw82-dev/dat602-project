@@ -34,6 +34,8 @@ namespace WizardQuestGUIApp
             DataAccess dataAccess = new DataAccess();
             activeQuestDataSource = dataAccess.GetAdministratorQuest();
             activeQuestData.DataSource = activeQuestDataSource;
+            this.activeQuestData.Columns["QuestID"].Visible = false;
+            activeQuestData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void GlobalUserList()
@@ -72,7 +74,59 @@ namespace WizardQuestGUIApp
         private void modifyButton_Click(object sender, EventArgs e)
         {
             User transferUser = (User)globalUserData.SelectedRows[0].DataBoundItem;
-            transferUser.EditUser(this);
+            transferUser.EditUser(this, true);
+        }
+
+        private void newButton_Click(object sender, EventArgs e)
+        {
+            User transferUser = new User();
+            transferUser.NewUser(this, false);
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            User user = (User)globalUserData.SelectedRows[0].DataBoundItem;
+            var result = MessageBox.Show(string.Format($"Are you sure you want to delete the user {user.Username}?"), "Delete User?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                DataAccess dataAccess = new DataAccess();
+                dataAccess.AdministratorDelete(user.UserID);
+
+                if (DataAccess.AdministrationStatus == "Success")
+                {
+                    MessageBox.Show("Delete Success", "User Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (DataAccess.AdministrationStatus == "UserID")
+                {
+                    MessageBox.Show("Your Wizard Quest UserID is invalid, please try again.", "Invalid UserID", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                UpdateDisplay();
+            }
+        }
+
+        private void killQuestButton_Click(object sender, EventArgs e)
+        {
+            ActiveQuest activeQuest = (ActiveQuest)activeQuestData.SelectedRows[0].DataBoundItem;
+            var result = MessageBox.Show(string.Format($"Are you sure you want to kill the quest: {activeQuest.QuestName}?"), "Kill Quest?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                DataAccess dataAccess = new DataAccess();
+                dataAccess.AdministratorKill(activeQuest.QuestID);
+
+                if (DataAccess.AdministrationStatus == "Success")
+                {
+                    MessageBox.Show("Quest Killed Successfully", "Quest Killed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (DataAccess.AdministrationStatus == "QuestID")
+                {
+                    MessageBox.Show("Your Wizard Quest QuestID is invalid, please try again.", "Invalid QuestID", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                UpdateDisplay();
+            }
         }
     }
 }

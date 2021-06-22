@@ -14,13 +14,23 @@ namespace WizardQuestGUIApp
     {
         public User User;
         private AdministrationForm _administrationForm;
+        private bool _existingUser;
 
-        public UserForm(AdministrationForm transferUser)
+        public UserForm(AdministrationForm transferUser, bool existingUser)
         {
             InitializeComponent();
             _administrationForm = transferUser;
+            _existingUser = existingUser;
             userIDNumeric.ReadOnly = true;
             userIDNumeric.Increment = 0;
+            if (existingUser == false)
+            {
+                totalScoreNumeric.ReadOnly = true;
+                totalScoreNumeric.Increment = 0;
+                loginAttemptsNumeric.ReadOnly = true;
+                loginAttemptsNumeric.Increment = 0;
+                lockedCheckBox.Enabled = false;
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -30,6 +40,42 @@ namespace WizardQuestGUIApp
         }
 
         private void okButton_Click(object sender, EventArgs e)
+        {
+            if (_existingUser == true)
+            {
+                ModifyUser();
+            }
+            else if (_existingUser == false)
+            {
+                AddUser();
+            }
+        }
+
+        private void AddUser()
+        {
+            if (usernameText.Text != "" && passwordText.Text != "" && emailText.Text != "")
+            {
+                DataAccess dataAccess = new DataAccess();
+                dataAccess.AdministratorAdd(usernameText.Text, passwordText.Text, emailText.Text, administratorCheckBox.Checked);
+
+                if (DataAccess.AdministrationStatus == "Success")
+                {
+                    MessageBox.Show("Update Success", "User Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                    _administrationForm.UpdateDisplay();
+                }
+                else if (DataAccess.AdministrationStatus == "Username")
+                {
+                    MessageBox.Show("Your Wizard Quest Username is invalid, please try again.", "Invalid Username", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Details are incomplete, please review and try again.", "User Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ModifyUser()
         {
             if (usernameText.Text != "" && passwordText.Text != "" && emailText.Text != "")
             {
@@ -55,7 +101,6 @@ namespace WizardQuestGUIApp
             {
                 MessageBox.Show("Details are incomplete, please review and try again.", "User Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
     }
 }

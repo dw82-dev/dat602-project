@@ -17,7 +17,7 @@ namespace WizardQuestGUIApp
         private bool _administrator;
         private List<UserView> onlineUserDataSource;
         private List<ActiveQuest> activeQuestDataSource;
-        private List<UserActiveQuest> userActiveQuestDataSource;
+        private List<ActiveQuest> userActiveQuestDataSource;
         private List<HighScore> highScoreDataSource;
 
         public QuestSelectionForm(string username, bool administrator)
@@ -69,6 +69,8 @@ namespace WizardQuestGUIApp
             DataAccess dataAccess = new DataAccess();
             activeQuestDataSource = dataAccess.GetActiveQuest(_userID);
             activeQuestData.DataSource = activeQuestDataSource;
+            this.activeQuestData.Columns["QuestID"].Visible = false;
+            activeQuestData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void UserActiveQuestList()
@@ -77,6 +79,8 @@ namespace WizardQuestGUIApp
             DataAccess dataAccess = new DataAccess();
             userActiveQuestDataSource = dataAccess.GetUserActiveQuest(_userID);
             userQuestData.DataSource = userActiveQuestDataSource;
+            this.userQuestData.Columns["QuestID"].Visible = false;
+            userQuestData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void logoutButton_Click(object sender, EventArgs e)

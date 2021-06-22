@@ -73,11 +73,11 @@ namespace WizardQuestGUIApp
             this.usersLabel.TabIndex = 15;
             this.usersLabel.Text = "Wizard Quest Users";
             // 
-            // gloablUserData
+            // globalUserData
             // 
             this.globalUserData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.globalUserData.Location = new System.Drawing.Point(286, 145);
-            this.globalUserData.Name = "gloablUserData";
+            this.globalUserData.Name = "globalUserData";
             this.globalUserData.Size = new System.Drawing.Size(203, 330);
             this.globalUserData.TabIndex = 14;
             // 
@@ -107,6 +107,7 @@ namespace WizardQuestGUIApp
             this.killQuestButton.TabIndex = 18;
             this.killQuestButton.Text = "Kill Quest";
             this.killQuestButton.UseVisualStyleBackColor = true;
+            this.killQuestButton.Click += new System.EventHandler(this.killQuestButton_Click);
             // 
             // newButton
             // 
@@ -116,6 +117,7 @@ namespace WizardQuestGUIApp
             this.newButton.TabIndex = 19;
             this.newButton.Text = "New";
             this.newButton.UseVisualStyleBackColor = true;
+            this.newButton.Click += new System.EventHandler(this.newButton_Click);
             // 
             // modifyButton
             // 
@@ -135,6 +137,7 @@ namespace WizardQuestGUIApp
             this.deleteButton.TabIndex = 21;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // AdministrationForm
             // 

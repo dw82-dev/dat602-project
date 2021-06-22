@@ -26,13 +26,24 @@ namespace WizardQuestGUIApp
         public int TotalScore { get => _totalScore; set => _totalScore = value; }
         public bool UserLocked { get => _userLocked; set => _userLocked = value; }
         public bool Administrator { get => _administrator; set => _administrator = value; }
-        
 
-        public void EditUser(AdministrationForm transferUser)
+
+        public void NewUser(AdministrationForm transferUser, bool existingUser)
         {
             if (_userForm == null)
             {
-                _userForm = new UserForm(transferUser);
+                _userForm = new UserForm(transferUser, existingUser);
+                _userForm.User = this;
+            }
+
+            _userForm.ShowDialog();
+        }
+
+        public void EditUser(AdministrationForm userAdministration, bool existingUser)
+        {
+            if (_userForm == null)
+            {
+                _userForm = new UserForm(userAdministration, existingUser);
                 _userForm.User = this;
             }
 

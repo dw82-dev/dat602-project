@@ -190,7 +190,7 @@ namespace WizardQuestGUIApp
             return (leaveQuestDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string AdministratorAdd(string pUserName, string pUserPassword, string pEmail, bool pAdministrator)
+        public void AdministratorAdd(string pUserName, string pUserPassword, string pEmail, bool pAdministrator)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var userName = new MySqlParameter("UserName", MySqlDbType.VarChar, 30);
@@ -207,7 +207,7 @@ namespace WizardQuestGUIApp
             parameterList.Add(administrator);
 
             var administratorAddDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call administratorAdd(@UserName, @UserPassword, @Email, @Administrator)", parameterList.ToArray());
-            return (administratorAddDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.AdministrationStatus = (administratorAddDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public void AdministratorModify(int pUserID, string pUserName, string pUserPassword, string pEmail, int pLoginAttempts, bool pUserLocked, bool pAdministrator, int pTotalScore)
@@ -242,7 +242,7 @@ namespace WizardQuestGUIApp
             DataAccess.AdministrationStatus = (administratorModifyDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string AdministratorDelete(int pUserID)
+        public void AdministratorDelete(int pUserID)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
@@ -250,10 +250,10 @@ namespace WizardQuestGUIApp
             parameterList.Add(userID);
 
             var administratorDeleteDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call administratorDelete(@UserID)", parameterList.ToArray());
-            return (administratorDeleteDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.AdministrationStatus = (administratorDeleteDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string AdministratorKill(int pQuestID)
+        public void AdministratorKill(int pQuestID)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var questID = new MySqlParameter("QuestID", MySqlDbType.Int16);
@@ -261,7 +261,7 @@ namespace WizardQuestGUIApp
             parameterList.Add(questID);
 
             var administratorKillDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call administratorKill(@QuestID)", parameterList.ToArray());
-            return (administratorKillDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.AdministrationStatus = (administratorKillDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public List<User> GetAllUsers()
@@ -333,6 +333,7 @@ namespace WizardQuestGUIApp
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
                 ActiveQuest activeQuest = new ActiveQuest();
+                activeQuest.QuestID = row.Field<int>("QuestID");
                 activeQuest.QuestName = row.Field<string>("QuestName");
                 administratorQuestList.Add(activeQuest);
             }
@@ -340,10 +341,10 @@ namespace WizardQuestGUIApp
             return administratorQuestList;
         }
 
-        public List<UserActiveQuest> GetUserActiveQuest(int pUserID)
+        public List<ActiveQuest> GetUserActiveQuest(int pUserID)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
-            List<UserActiveQuest> userActiveQuestList = new List<UserActiveQuest>();
+            List<ActiveQuest> userActiveQuestList = new List<ActiveQuest>();
 
             var userID = new MySqlParameter("@UserID", MySqlDbType.Int16);
             userID.Value = pUserID;
@@ -353,7 +354,8 @@ namespace WizardQuestGUIApp
 
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
-                UserActiveQuest userActiveQuest = new UserActiveQuest();
+                ActiveQuest userActiveQuest = new ActiveQuest();
+                userActiveQuest.QuestID = row.Field<int>("QuestID");
                 userActiveQuest.QuestName = row.Field<string>("QuestName");
                 userActiveQuestList.Add(userActiveQuest);
             }

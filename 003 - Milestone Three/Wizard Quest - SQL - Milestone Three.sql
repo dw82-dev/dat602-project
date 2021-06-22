@@ -950,7 +950,7 @@ if exists (select *
 	else
 		insert into tblUser(UserName, UserPassword, Email, LoginAttempts, UserLocked, UserOnline, Administrator, TotalScore)
 		values (pUserName, pUserPassword, pEmail, 0, false, false, pAdministrator, 0);
-		select 'Sucess' as message;
+		select 'Success' as message;
 	end if;
 
 end //
@@ -1004,11 +1004,11 @@ begin
     where UserID = pUserID;
     
     if deleteUser is null then
-		select 'Fail - Invalid UserID' as message;
+		select 'UserID' as message;
 	else		
 		delete from tblUser
 		where UserID = pUserID;
-		select 'Success - User Deleted' as message;
+		select 'Success' as message;
 	end if;
 
 end //
@@ -1025,9 +1025,9 @@ begin
 				delete from tblQuest
 				where QuestID = pQuestID;
                 
-				select 'Quest Killed' as message;
+				select 'Success' as message;
     else
-				select 'Invalid Quest' as message;
+				select 'QuestID' as message;
 	end if;
 end //
 delimiter ;
@@ -1036,7 +1036,7 @@ drop procedure if exists getAdministratorQuest;
 delimiter //
 create procedure getAdministratorQuest()
 begin
-	select QuestName
+	select QuestID, QuestName
     from tblQuest
     where QuestStatus = true;
 end //
@@ -1165,7 +1165,7 @@ drop procedure if exists getUserActiveQuest;
 delimiter //
 create procedure getUserActiveQuest(in pUserID int)
 begin
-    select QuestName
+    select QuestID, QuestName
     from tblQuest
     where QuestStatus = true
     and QuestID  in	(select QuestID
