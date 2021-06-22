@@ -945,12 +945,12 @@ if exists (select *
 		from tblUser
         where UserName = pUserName) then
 	begin
-		select 'Registration Failed - Existing Username' as message;
+		select 'Username' as message;
     end;    
 	else
 		insert into tblUser(UserName, UserPassword, Email, LoginAttempts, UserLocked, UserOnline, Administrator, TotalScore)
 		values (pUserName, pUserPassword, pEmail, 0, false, false, pAdministrator, 0);
-		select 'Registration Sucess - New User Added' as message;
+		select 'Sucess' as message;
 	end if;
 
 end //
@@ -967,14 +967,14 @@ begin
 				from tblUser
                 where UserName = pUserName
                 and UserID <> pUserID) then
-				select 'Failed - Existing Username' as message;
+				select 'Username' as message;
 	else
 				set modifyUser =	(select UserID
 									from tblUser
 									where UserID = pUserID);
 				
 									if modifyUser is null then
-										select 'Failed - Invalid UserID' as message;
+										select 'UserID' as message;
 									else                   
 										update tblUser
 										set 	UserName = pUserName,
@@ -985,7 +985,7 @@ begin
 												Administrator = pAdministrator,
 												TotalScore = pTotalScore
 										where	UserID = pUserID;
-										select 'Success - User Updated' as message;
+										select 'Success' as message;
 									end if;
 	end if;
 end //
@@ -1133,7 +1133,7 @@ drop procedure if exists getAllUsers;
 delimiter //
 create procedure getAllUsers()
 begin
-	select UserName
+	select UserID, UserName, UserPassword, Email, LoginAttempts, TotalScore, UserLocked, Administrator
     from tblUser;
 end //
 delimiter ;

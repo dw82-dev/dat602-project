@@ -16,6 +16,7 @@ namespace WizardQuestGUIApp
         public static string LoginStatus = "";
         public static string RegistrationStatus = "";
         public static string UserID;
+        public static string AdministrationStatus = "";
 
         public static MySqlConnection MySqlConnection
         {
@@ -209,7 +210,7 @@ namespace WizardQuestGUIApp
             return (administratorAddDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string AdministratorModify(int pUserID, string pUserName, string pUserPassword, string pEmail, int pLoginAttempts, bool pUserLocked, bool pAdministrator, int pTotalScore)
+        public void AdministratorModify(int pUserID, string pUserName, string pUserPassword, string pEmail, int pLoginAttempts, bool pUserLocked, bool pAdministrator, int pTotalScore)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
@@ -238,7 +239,7 @@ namespace WizardQuestGUIApp
             parameterList.Add(totalScore);
 
             var administratorModifyDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call administratorModify(@UserID, @UserName, @UserPassword, @Email, @LoginAttempts, @UserLocked, @Administrator, @TotalScore)", parameterList.ToArray());
-            return (administratorModifyDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.AdministrationStatus = (administratorModifyDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public string AdministratorDelete(int pUserID)
@@ -263,16 +264,22 @@ namespace WizardQuestGUIApp
             return (administratorKillDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public List<UserView> GetAllUsers()
+        public List<User> GetAllUsers()
         {
             var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "Call getAllUsers()");
 
-            List<UserView> globalUserList = new List<UserView>();
+            List<User> globalUserList = new List<User>();
 
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
-                UserView globalUser = new UserView();
+                User globalUser = new User();
+                globalUser.UserID = row.Field<int>("UserID");
                 globalUser.Username = row.Field<string>("Username");
+                globalUser.UserPassword = row.Field<string>("UserPassword");
+                globalUser.Email = row.Field<string>("Email");
+                globalUser.TotalScore = row.Field<int>("TotalScore");
+                globalUser.UserLocked = row.Field<bool>("UserLocked");
+                globalUser.Administrator = row.Field<bool>("Administrator");
                 globalUserList.Add(globalUser);
             }
 

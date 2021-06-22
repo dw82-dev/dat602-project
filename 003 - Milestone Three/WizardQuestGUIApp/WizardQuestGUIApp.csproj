@@ -95,7 +95,7 @@
     <Compile Include="AdministrationForm.Designer.cs">
       <DependentUpon>AdministrationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="HighScore.cs" />
     <Compile Include="Inventory.cs" />
@@ -104,6 +104,12 @@
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserForm.Designer.cs">
+      <DependentUpon>UserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UserView.cs" />
     <Compile Include="Program.cs" />
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegistrationForm.resx">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserForm.resx">
+      <DependentUpon>UserForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
