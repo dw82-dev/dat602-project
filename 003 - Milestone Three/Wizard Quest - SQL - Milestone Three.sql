@@ -311,9 +311,9 @@ begin
     declare homeTileID int default null;
     declare endTileID int default null;
     declare rowMin int default 1;
-    declare rowMax int default 20;
+    declare rowMax int default 10;
     declare colMin int default 1;
-    declare colMax int default 20;
+    declare colMax int default 10;
     declare assetCount int default 0;
     declare assetTile int default null;
     declare assetType int default 1;
@@ -343,13 +343,13 @@ begin
 						insert into tblTile(MapID, xPosition, yPosition, TileActive)
 						values (newMapID, rowMin, colMin, true);
 						set colMin = colMin + 1;
-						if colMin > 20 then
+						if colMin > colMax then
 							set colMin = 1;
 							leave tileCol;
 						end if;
 					end loop tileCol;
 				set rowMin = rowMin + 1;
-				if rowMin > 20 then
+				if rowMin > rowMax then
 					leave tileRow;
 				end if;
 				end loop tileRow;
@@ -364,7 +364,7 @@ begin
 				select TileID
 				into endTileID
 				from tblTile
-				where xPosition = 20 and yPosition = 20 and MapID = newMapID;
+				where xPosition = rowMax and yPosition = colMax and MapID = newMapID;
 				
 				-- creates all game assests on random tiles excluding home tile
 				getAsset: loop
@@ -372,13 +372,14 @@ begin
 							set assetTile =	(select floor(rand()*(endTileID-homeTileID)+homeTileID));
 							if not exists 	(select * 
 											from tblTileAsset
-											where TileID = assetTile) then
+											where TileID = assetTile
+                                            and assetTile <> homeTileID) then
 											set assetCount = assetCount + 1;
 											insert into tblTileAsset(TileID, AssetID)
 											values (assetTile, assetType);
 											
 							end if;
-											if assetCount = 25 then
+											if assetCount = 10 then
 												set assetCount = 0;
 												leave addAsset;
 											end if;
