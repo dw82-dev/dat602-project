@@ -18,7 +18,7 @@ namespace WizardQuestGUIApp
         private List<UserView> onlineUserDataSource;
         private List<ActiveQuest> activeQuestDataSource;
         private List<ActiveQuest> userActiveQuestDataSource;
-        private List<HighScore> highScoreDataSource;
+        private List<Score> highScoreDataSource;
 
         public QuestSelectionForm(string username, bool administrator)
         {
@@ -112,10 +112,47 @@ namespace WizardQuestGUIApp
             }    
         }
 
-        private void JoinQuest()
+        private void JoinQuest(DataGridView selectedDataGrid)
         {
-            DataAccess dataAccess = new DataAccess();
-            //dataAccess.JoinQuest(_userID, questName);
+            ActiveQuest joinQuest = (ActiveQuest)selectedDataGrid.SelectedRows[0].DataBoundItem;
+
+            var result = MessageBox.Show(string.Format($"Would you like to join the Quest: {joinQuest.QuestName}?"), "Join Quest?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                DataAccess dataAccess = new DataAccess();
+                dataAccess.JoinQuest(_userID, joinQuest.QuestID);
+
+                if (DataAccess.QuestStatus == "Join")
+                {
+                    this.Hide();
+                    MessageBox.Show("Quest joined", "New Quest Active", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    QuestForm questForm = new QuestForm(_userID, joinQuest.QuestName);
+                    if (questForm.ShowDialog() == DialogResult.OK)
+                    {
+                        this.Show();
+                    }
+                }
+                else if (DataAccess.QuestStatus == "Rejoin")
+                {
+                    this.Hide();
+                    MessageBox.Show("Quest joined, continue your existing quest", "Welcome Back", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    QuestForm questForm = new QuestForm(_userID, joinQuest.QuestName);
+                    if (questForm.ShowDialog() == DialogResult.OK)
+                    {
+                        this.Show();
+                    }
+                }
+                else if (DataAccess.QuestStatus == "Full")
+                {
+                    MessageBox.Show("Sorry, this quest is full. Choose another or create your own!", "Quest Full", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (DataAccess.QuestStatus == "InUse")
+                {
+                    MessageBox.Show("Sorry, you need to choose a new tile", "Tile Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                UpdateDisplay();
+            }
         }
 
         private void logoutButton_Click(object sender, EventArgs e)
@@ -169,9 +206,14 @@ namespace WizardQuestGUIApp
             NewQuest();
         }
 
-        private void joinQuestButton_Click(object sender, EventArgs e)
+        private void userQuestData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            JoinQuest();
+            JoinQuest(userQuestData);
+        }
+
+        private void activeQuestData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            JoinQuest(activeQuestData);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace WizardQuestGUIApp
             this.leaveQuestButton = new System.Windows.Forms.Button();
             this.sendButton = new System.Windows.Forms.Button();
             this.chatText = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.inventoryData = new System.Windows.Forms.DataGridView();
             this.inventoryLabel = new System.Windows.Forms.Label();
             this.chatLabel = new System.Windows.Forms.Label();
             this.scoreLabel = new System.Windows.Forms.Label();
@@ -79,7 +79,9 @@ namespace WizardQuestGUIApp
             this.button40 = new System.Windows.Forms.Button();
             this.button41 = new System.Windows.Forms.Button();
             this.button42 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.userQuestScoreData = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.inventoryData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userQuestScoreData)).BeginInit();
             this.SuspendLayout();
             // 
             // chatListBox
@@ -108,6 +110,7 @@ namespace WizardQuestGUIApp
             this.sendButton.TabIndex = 9;
             this.sendButton.Text = "Send";
             this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
             // chatText
             // 
@@ -116,13 +119,13 @@ namespace WizardQuestGUIApp
             this.chatText.Size = new System.Drawing.Size(405, 20);
             this.chatText.TabIndex = 11;
             // 
-            // dataGridView1
+            // inventoryData
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(745, 318);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 12;
+            this.inventoryData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.inventoryData.Location = new System.Drawing.Point(670, 318);
+            this.inventoryData.Name = "inventoryData";
+            this.inventoryData.Size = new System.Drawing.Size(315, 150);
+            this.inventoryData.TabIndex = 12;
             // 
             // inventoryLabel
             // 
@@ -534,11 +537,20 @@ namespace WizardQuestGUIApp
             this.button42.Text = "button42";
             this.button42.UseVisualStyleBackColor = true;
             // 
+            // userQuestScoreData
+            // 
+            this.userQuestScoreData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.userQuestScoreData.Location = new System.Drawing.Point(670, 65);
+            this.userQuestScoreData.Name = "userQuestScoreData";
+            this.userQuestScoreData.Size = new System.Drawing.Size(315, 150);
+            this.userQuestScoreData.TabIndex = 58;
+            // 
             // QuestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1016, 644);
+            this.Controls.Add(this.userQuestScoreData);
             this.Controls.Add(this.button37);
             this.Controls.Add(this.button38);
             this.Controls.Add(this.button39);
@@ -584,7 +596,7 @@ namespace WizardQuestGUIApp
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.chatLabel);
             this.Controls.Add(this.inventoryLabel);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.inventoryData);
             this.Controls.Add(this.chatText);
             this.Controls.Add(this.leaveQuestButton);
             this.Controls.Add(this.sendButton);
@@ -592,7 +604,9 @@ namespace WizardQuestGUIApp
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "QuestForm";
             this.Text = "Wizard Quest - Now You\'re Questing";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QuestForm_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.inventoryData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userQuestScoreData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -604,7 +618,7 @@ namespace WizardQuestGUIApp
         private System.Windows.Forms.Button leaveQuestButton;
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.TextBox chatText;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView inventoryData;
         private System.Windows.Forms.Label inventoryLabel;
         private System.Windows.Forms.Label chatLabel;
         private System.Windows.Forms.Label scoreLabel;
@@ -650,5 +664,6 @@ namespace WizardQuestGUIApp
         private System.Windows.Forms.Button button40;
         private System.Windows.Forms.Button button41;
         private System.Windows.Forms.Button button42;
+        private System.Windows.Forms.DataGridView userQuestScoreData;
     }
 }

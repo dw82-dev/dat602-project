@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WizardQuestGUIApp
 {
-    public class HighScore
+    public class Score
     {
         private string _username;
         private int _totalScore;

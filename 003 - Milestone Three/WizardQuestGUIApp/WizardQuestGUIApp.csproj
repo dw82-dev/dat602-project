@@ -109,7 +109,7 @@
     </Compile>
     <Compile Include="User.cs" />
     <Compile Include="DataAccess.cs" />
-    <Compile Include="HighScore.cs" />
+    <Compile Include="Score.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>

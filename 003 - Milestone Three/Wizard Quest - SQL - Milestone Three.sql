@@ -483,10 +483,10 @@ begin
 								where QuestID = pQuestID;
 							end if;
                             
-							select 'Welcome Back' as message;
+							select 'Rejoin' as message; -- join success, existing player
 				else
 							-- link to rejoinMove procedure with user input
-							select 'Previous Tile In-Use - Choose Another' as message;
+							select 'InUse' as message;
                 end if;
 	else
 				-- check if user can join
@@ -523,9 +523,9 @@ begin
 								where QuestID = pQuestID;
 							end if;
 					
-					select 'Quest Joined' as message;
+					select 'Join' as message; -- join success, new session created
 				else
-					select 'Quest Full - Try Another' as message;
+					select 'Full' as message; -- quest has max players
 				end if;
 	end if;
 end //
@@ -533,24 +533,25 @@ delimiter ;
 
 drop procedure if exists userMove;
 delimiter //
-create procedure userMove(pSessionID int, pUserID int, pxPosition int, pyPosition int)
+create procedure userMove(pQuestID int, pUserID int, pxPosition int, pyPosition int)
 begin
 	
     declare currentMapID int default null;
     declare homeTileID int default null;
     declare startTileID int default null;
     declare targetTileID int default null;
-    declare currentQuestID int default null;
+    declare currentSessionID int default null;
     declare currentCount int default null;
     declare nextPlayer int default null;
     
-    set currentQuestID = 	(select QuestID
+    set currentSessionID = 	(select SessionID
 							from tblSession
-                            where SessionID = pSessionID);
+                            where UserID = pUserID
+                            and QuestID = pQuestID);
 
     set currentMapID =	(select MapID
 						from tblSession
-                        where SessionID = pSessionID
+                        where SessionID = currentSessionID
                         and UserID = pUserID);
 	
     set homeTileID =	(select TileID
@@ -560,7 +561,7 @@ begin
 	
     set startTileID =	(select TileID
 						from tblSession
-                        where SessionID = pSessionID
+                        where SessionID = currentSessionID
                         and UserID = pUserID);	
     
     -- checks if user can move                   
@@ -568,8 +569,8 @@ begin
 				from tblSession
                 where PlayerNumber =	(select ActivePlayer
 										from tblQuest
-                                        where QuestID = currentQuestID)
-				and SessionID = pSessionID) then
+                                        where QuestID = pQuestID)
+				and SessionID = currentSessionID) then
 		
         -- validates new tile location
 		if exists	(select *
@@ -584,7 +585,7 @@ begin
 										where t.MapID = currentMapID
 										and ((t2.xPosition = t.xPosition + 1) or (t2.xPosition = t.xPosition -1) or (t2.xPosition = t.xPosition))
 										and	((t2.yPosition = t.yPosition + 1) or (t2.yPosition = t.yPosition -1) or (t2.yPosition = t.yPosition))
-										and	s.SessionID = pSessionID
+										and	s.SessionID = currentSessionID
 										and	s.UserID = pUserID)) then
 										
 					set targetTileID =	(select TileID
@@ -600,7 +601,7 @@ begin
 								
 								update tblSession
 								set TileID = targetTileID
-								where SessionID = pSessionID;
+								where SessionID = currentSessionID;
 										
 								-- sets new tile if <> home tile so no other users can choose it
 								update tblTile
@@ -632,7 +633,7 @@ begin
 																join tblTileAsset as t
 																on a.AssetID = t.AssetID
 																where t.TileID = targetTileID)
-											where SessionID = pSessionID;
+											where SessionID = currentSessionID;
 																
 											-- removes asset from map
 											delete from tblTileAsset
@@ -642,11 +643,11 @@ begin
 								-- Update player turn 
 								set currentCount = 	(select count(*) 
 													from tblSession 
-													where QuestID = currentQuestID);
+													where QuestID = pQuestID);
 								
 								set nextPlayer =	(select PlayerNumber
 													from tblSession
-													where SessionID = pSessionID);
+													where SessionID = currentSessionID);
 								
 								-- finds next player online in current quest
 								findNextPlayer: loop
@@ -661,31 +662,31 @@ begin
 									-- check if nextPlayer is online
 									if exists	(select PlayerNumber
 												from tblSession
-												where QuestID = currentQuestID
+												where QuestID = pQuestID
 												and PlayerNumber = nextPlayer
 												and SessionActive = true) then
 												
 												update tblQuest
 												set ActivePlayer = nextPlayer
-												where QuestID = currentQuestID;
+												where QuestID = pQuestID;
 												
 												leave findNextPlayer;
 									end if;
 								end loop findNextPlayer;
 								
-								select 'Success' as message;
+								select 'Success' as message; -- move successful
 					else
-								select 'Tile In Use' as message;
+								select 'InUse' as message; -- tile has another user on it
 					end if;
 		else
-					select 'Invalid Move' as message;
+					select 'Invalid' as message; -- tile is not in range
 		end if;
     else
-		select 'Wait for your turn!' as message;
+		select 'Wait' as message; -- not users turn
 	end if;
     
     -- quest validation users, scores, and assets
-	call checkQuest(pUserID, currentQuestID, currentMapID);
+	-- call checkQuest(pUserID, pQuestID, currentMapID);
                                         
 end //
 delimiter ;
@@ -841,9 +842,9 @@ begin
                 -- sends chat
                 insert into tblChat(UserID, QuestID, Message)
 				values(pUserID, pQuestID, pMessage);
-				select pMessage as message;
+                select 'Success' as message;
 	else
-				select 'Chat Unavilable - Your Quest Has Ended' as message;
+				select 'Failed' as message; -- if quest is not active
 	end if;
 end //
 delimiter ;
@@ -1198,15 +1199,36 @@ begin
 end //
 delimiter ;
 
+drop procedure if exists getQuestScore;
+delimiter //
+create procedure getQuestScore(pQuestID int)
+begin
+    select u.UserName as UserName, s.Score as TotalScore
+	from tblUser as u
+	join tblSession as s
+	on u.UserID = s.UserID
+	where QuestID = pQuestID
+    order by TotalScore desc;
+end //
+delimiter ;
+
 drop procedure if exists getUserInventory
 delimiter //
-create procedure getUserInventory(pSessionID int)
+create procedure getUserInventory(pUserID int, pQuestID int)
 begin
+	declare currentSessionID int default null;
+    
+    select SessionID
+    from tblSession
+    where QuestID = pQuestID
+    and UserID = pUserID
+    into currentSessionID;
+    
     select a.AssetDescription as Item, i.Quantity
 	from tblInventory as i
 	join tblAsset as a
 	on i.AssetID = a.AssetID
-	where SessionID = pSessionID;
+	where SessionID = currentSessionID;
 end //
 delimiter ;
 

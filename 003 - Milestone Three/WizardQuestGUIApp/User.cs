@@ -28,11 +28,11 @@ namespace WizardQuestGUIApp
         public bool Administrator { get => _administrator; set => _administrator = value; }
 
 
-        public void NewUser(AdministrationForm transferUser, bool existingUser)
+        public void NewUser(AdministrationForm userAdministration, bool existingUser)
         {
             if (_userForm == null)
             {
-                _userForm = new UserForm(transferUser, existingUser);
+                _userForm = new UserForm(userAdministration, existingUser);
                 _userForm.User = this;
             }
 

@@ -40,7 +40,6 @@ namespace WizardQuestGUIApp
             this.administrationButton = new System.Windows.Forms.Button();
             this.highScoresLabel = new System.Windows.Forms.Label();
             this.highScoreData = new System.Windows.Forms.DataGridView();
-            this.joinQuestButton = new System.Windows.Forms.Button();
             this.newQuestButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.userOnlineData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.activeQuestData)).BeginInit();
@@ -71,7 +70,7 @@ namespace WizardQuestGUIApp
             // userOnlineData
             // 
             this.userOnlineData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.userOnlineData.Location = new System.Drawing.Point(599, 140);
+            this.userOnlineData.Location = new System.Drawing.Point(367, 140);
             this.userOnlineData.Name = "userOnlineData";
             this.userOnlineData.Size = new System.Drawing.Size(170, 330);
             this.userOnlineData.TabIndex = 2;
@@ -80,7 +79,7 @@ namespace WizardQuestGUIApp
             // 
             this.playersOnlineLabel.AutoSize = true;
             this.playersOnlineLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playersOnlineLabel.Location = new System.Drawing.Point(595, 117);
+            this.playersOnlineLabel.Location = new System.Drawing.Point(363, 117);
             this.playersOnlineLabel.Name = "playersOnlineLabel";
             this.playersOnlineLabel.Size = new System.Drawing.Size(123, 20);
             this.playersOnlineLabel.TabIndex = 3;
@@ -89,24 +88,26 @@ namespace WizardQuestGUIApp
             // activeQuestData
             // 
             this.activeQuestData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.activeQuestData.Location = new System.Drawing.Point(366, 140);
+            this.activeQuestData.Location = new System.Drawing.Point(601, 140);
             this.activeQuestData.Name = "activeQuestData";
             this.activeQuestData.Size = new System.Drawing.Size(170, 139);
             this.activeQuestData.TabIndex = 4;
+            this.activeQuestData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.activeQuestData_CellDoubleClick);
             // 
             // userQuestData
             // 
             this.userQuestData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.userQuestData.Location = new System.Drawing.Point(366, 331);
+            this.userQuestData.Location = new System.Drawing.Point(601, 331);
             this.userQuestData.Name = "userQuestData";
             this.userQuestData.Size = new System.Drawing.Size(170, 139);
             this.userQuestData.TabIndex = 5;
+            this.userQuestData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.userQuestData_CellDoubleClick);
             // 
             // questProgressLabel
             // 
             this.questProgressLabel.AutoSize = true;
             this.questProgressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questProgressLabel.Location = new System.Drawing.Point(362, 117);
+            this.questProgressLabel.Location = new System.Drawing.Point(597, 117);
             this.questProgressLabel.Name = "questProgressLabel";
             this.questProgressLabel.Size = new System.Drawing.Size(161, 20);
             this.questProgressLabel.TabIndex = 6;
@@ -116,7 +117,7 @@ namespace WizardQuestGUIApp
             // 
             this.savedQuestLabel.AutoSize = true;
             this.savedQuestLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.savedQuestLabel.Location = new System.Drawing.Point(362, 308);
+            this.savedQuestLabel.Location = new System.Drawing.Point(597, 308);
             this.savedQuestLabel.Name = "savedQuestLabel";
             this.savedQuestLabel.Size = new System.Drawing.Size(148, 20);
             this.savedQuestLabel.TabIndex = 7;
@@ -150,16 +151,6 @@ namespace WizardQuestGUIApp
             this.highScoreData.Size = new System.Drawing.Size(269, 330);
             this.highScoreData.TabIndex = 9;
             // 
-            // joinQuestButton
-            // 
-            this.joinQuestButton.Location = new System.Drawing.Point(407, 522);
-            this.joinQuestButton.Name = "joinQuestButton";
-            this.joinQuestButton.Size = new System.Drawing.Size(103, 23);
-            this.joinQuestButton.TabIndex = 11;
-            this.joinQuestButton.Text = "Join Quest";
-            this.joinQuestButton.UseVisualStyleBackColor = true;
-            this.joinQuestButton.Click += new System.EventHandler(this.joinQuestButton_Click);
-            // 
             // newQuestButton
             // 
             this.newQuestButton.Location = new System.Drawing.Point(666, 522);
@@ -176,7 +167,6 @@ namespace WizardQuestGUIApp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 570);
             this.Controls.Add(this.newQuestButton);
-            this.Controls.Add(this.joinQuestButton);
             this.Controls.Add(this.highScoresLabel);
             this.Controls.Add(this.highScoreData);
             this.Controls.Add(this.administrationButton);
@@ -214,7 +204,6 @@ namespace WizardQuestGUIApp
         private System.Windows.Forms.Button administrationButton;
         private System.Windows.Forms.Label highScoresLabel;
         private System.Windows.Forms.DataGridView highScoreData;
-        private System.Windows.Forms.Button joinQuestButton;
         private System.Windows.Forms.Button newQuestButton;
     }
 }

@@ -139,7 +139,7 @@ namespace WizardQuestGUIApp
             DataAccess.QuestStatus = (newQuestDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string JoinQuest(int pUserID, int pQuestID)
+        public void JoinQuest(int pUserID, int pQuestID)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
@@ -150,30 +150,30 @@ namespace WizardQuestGUIApp
             parameterList.Add(questID);
 
             var joinQuestDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call joinQuest(@UserID, @QuestID)", parameterList.ToArray());
-            return (joinQuestDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.QuestStatus = (joinQuestDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public void UserMove(int pSessionID, int pUserID, int pxPosition, int pyPosition)
+        public void UserMove(int pQuestID, int pUserID, int pxPosition, int pyPosition)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
-            var sessionID = new MySqlParameter("SessionID", MySqlDbType.Int16);
+            var questID = new MySqlParameter("QuestID", MySqlDbType.Int16);
             var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
             var xPosition = new MySqlParameter("xPosition", MySqlDbType.Int16);
             var yPosition = new MySqlParameter("yPosition", MySqlDbType.Int16);
-            sessionID.Value = pSessionID;
+            questID.Value = pQuestID;
             userID.Value = pUserID;
             xPosition.Value = pxPosition;
             yPosition.Value = pyPosition;
-            parameterList.Add(sessionID);
+            parameterList.Add(questID);
             parameterList.Add(userID);
             parameterList.Add(xPosition);
             parameterList.Add(yPosition);
 
-            var userMoveDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userMove(@SessionID, @UserID, @xPosition, @yPosition)", parameterList.ToArray());
+            var userMoveDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userMove(@QuestID, @UserID, @xPosition, @yPosition)", parameterList.ToArray());
             DataAccess.MoveStatus = (userMoveDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string UserChat(int pUserID, int pQuestID, string pMessage)
+        public void UserChat(int pUserID, int pQuestID, string pMessage)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
@@ -187,7 +187,7 @@ namespace WizardQuestGUIApp
             parameterList.Add(message);
 
             var userChatDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userChat(@UserID, @QuestID, @Message)", parameterList.ToArray());
-            return (userChatDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.QuestStatus = (userChatDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public void LeaveQuest(int pUserID, int pQuestID)
@@ -378,36 +378,41 @@ namespace WizardQuestGUIApp
             return userActiveQuestList;
         }
 
-        public List<Inventory> GetUserInventory(int pSessionID)
+        public List<Inventory> GetUserInventory(int pUserID, int pQuestID)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
-            var sessionID = new MySqlParameter("@SessionID", MySqlDbType.Int16);
-            sessionID.Value = pSessionID;
-            parameterList.Add(sessionID);
+            List<Inventory> userInventoryList = new List<Inventory>();
 
-            List<Inventory> assets;
+            var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
+            var questID = new MySqlParameter("QuestID", MySqlDbType.Int16);
+            userID.Value = pUserID;
+            questID.Value = pQuestID;
+            parameterList.Add(userID);
+            parameterList.Add(questID);
 
-            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getUserInventory(@SessionID)", parameterList.ToArray());
-            assets = (from result in dataSet.Tables[0].AsEnumerable()
-                      select
-                         new Inventory
-                         {
-                             Item = result.Field<string>("Item"),
-                             Quantity = result.Field<int>("Quantity")
-                         }).ToList();
-            return assets;
+            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getUserInventory(@UserID, @QuestID)", parameterList.ToArray());
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                Inventory inventory = new Inventory();
+                inventory.Item = row.Field<string>("Item");
+                inventory.Quantity = row.Field<int>("Quantity");
+                userInventoryList.Add(inventory);
+            }
+
+            return userInventoryList;
         }
 
-        public List<HighScore> GetHighScores()
+        public List<Score> GetHighScores()
         {
             var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getHighScores()");
 
-            List<HighScore> highScoreList = new List<HighScore>();
+            List<Score> highScoreList = new List<Score>();
 
 
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
-                HighScore highScore = new HighScore();
+                Score highScore = new Score();
                 highScore.Username = row.Field<string>("Username");
                 highScore.TotalScore = row.Field<int>("TotalScore");
                 highScoreList.Add(highScore);
@@ -416,5 +421,26 @@ namespace WizardQuestGUIApp
             return highScoreList;
         }
 
+        public List<Score> GetQuestScore(int pQuestID)
+        {
+            List<MySqlParameter> parameterList = new List<MySqlParameter>();
+            List<Score> questScoreList = new List<Score>();
+
+            var questID = new MySqlParameter("QuestID", MySqlDbType.Int16);
+            questID.Value = pQuestID;
+            parameterList.Add(questID);
+
+            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getQuestScore(@QuestID)", parameterList.ToArray());
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                Score questScore = new Score();
+                questScore.Username = row.Field<string>("Username");
+                questScore.TotalScore = row.Field<int>("TotalScore");
+                questScoreList.Add(questScore);
+            }
+
+            return questScoreList;
+        }
     }
 }
