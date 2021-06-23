@@ -122,12 +122,55 @@ namespace WizardQuestGUIApp
             Button questButton = (Button)sender;
             string input = questButton.Name;
             int selectedTile = (int.Parse(input.Split('e')[1]));
+            var tileSearch = TileSearch(_questMap, 10, selectedTile);
 
-            TileSearch(_questMap, 10, selectedTile);
+            if (tileSearch.Item1 != 0 && tileSearch.Item2 != 0)
+            {
+                DataAccess dataAccess = new DataAccess();
+                dataAccess.UserMove(_questID, _userID, tileSearch.Item1, tileSearch.Item2);
+
+                if (DataAccess.MoveStatus == "Success")
+                {
+                    MessageBox.Show("You have moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    questButton.BackColor = Color.Blue;
+                    UpdateDisplay();
+                }
+                else if (DataAccess.MoveStatus == "Invalid")
+                {
+                    MessageBox.Show("Choose a closer tile.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (DataAccess.MoveStatus == "InUse")
+                {
+                    MessageBox.Show("Someone is on that tile. Try another.", "In Use", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (DataAccess.MoveStatus == "Wait")
+                {
+                    MessageBox.Show("It's not your turn!", "Wait Your Turn", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            
         }
 
-        private void TileSearch(int[,] mat, int rowMax, int tileID)
+        //private void TileSearch(int[,] mat, int rowMax, int tileID)
+        //{
+        //    // Traverse through the map
+        //    for (int newX = 0; newX < rowMax; newX++)
+        //    {
+        //        for (int newY = 0; newY < rowMax; newY++)
+
+        //            // When the tileID is found
+        //            if (mat[newX, newY] == tileID)
+        //            {
+
+        //            }
+        //    }
+        //}
+
+        public Tuple<int, int> TileSearch(int[,] mat, int rowMax, int tileID)
         {
+            int xMove;
+            int yMove;
+
             // Traverse through the map
             for (int newX = 0; newX < rowMax; newX++)
             {
@@ -136,29 +179,14 @@ namespace WizardQuestGUIApp
                     // When the tileID is found
                     if (mat[newX, newY] == tileID)
                     {
-                        DataAccess dataAccess = new DataAccess();
-                        dataAccess.UserMove(_questID, _userID, x, y);
+                        xMove = newX + 1;
+                        yMove = newY + 1;
 
-                        if (DataAccess.MoveStatus == "Success")
-                        {
-                            MessageBox.Show("You have moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            questButton.BackColor = Color.Red;
-                            UpdateDisplay();
-                        }
-                        else if (DataAccess.MoveStatus == "Invalid")
-                        {
-                            MessageBox.Show("Choose a closer tile.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (DataAccess.MoveStatus == "InUse")
-                        {
-                            MessageBox.Show("Someone is on that tile. Try another.", "In Use", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (DataAccess.MoveStatus == "Wait")
-                        {
-                            MessageBox.Show("It's not your turn!", "Wait Your Turn", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
+                        return Tuple.Create(xMove, yMove);
                     }
             }
+
+            return Tuple.Create(0, 0);
         }
 
         private void QuestForm_FormClosing(object sender, FormClosingEventArgs e)

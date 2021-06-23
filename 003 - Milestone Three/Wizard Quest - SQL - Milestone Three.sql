@@ -598,6 +598,7 @@ begin
 					if exists	(select TileID
 								from tblTile
 								where TileID = targetTileID
+                                and targetTileID <> startTileID
 								and TileActive = true) then
 								
 								update tblSession
