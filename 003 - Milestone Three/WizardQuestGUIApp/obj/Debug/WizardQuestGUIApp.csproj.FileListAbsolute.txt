@@ -36,3 +36,4 @@ C:\Users\danie\OneDrive\Documents\GitHub\dat602-project\003 - Milestone Three\Wi
 C:\Users\danie\OneDrive\Documents\GitHub\dat602-project\003 - Milestone Three\WizardQuestGUIApp\obj\Debug\WizardQuestGUIApp.AdministrationForm.resources
 C:\Users\danie\OneDrive\Documents\GitHub\dat602-project\003 - Milestone Three\WizardQuestGUIApp\obj\Debug\WizardQuestGUIApp.UserForm.resources
 C:\Users\danie\OneDrive\Documents\GitHub\dat602-project\003 - Milestone Three\WizardQuestGUIApp\obj\Debug\WizardQuestGUIApp.NewQuestForm.resources
+C:\Users\danie\OneDrive\Documents\GitHub\dat602-project\003 - Milestone Three\WizardQuestGUIApp\obj\Debug\WizardQuestGUIApp.QuestForm.resources

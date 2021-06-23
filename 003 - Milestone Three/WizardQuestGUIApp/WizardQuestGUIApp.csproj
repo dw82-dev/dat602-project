@@ -101,6 +101,12 @@
     <Compile Include="NewQuestForm.Designer.cs">
       <DependentUpon>NewQuestForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="QuestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuestForm.Designer.cs">
+      <DependentUpon>QuestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="User.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="HighScore.cs" />
@@ -153,6 +159,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="QuestForm.resx">
+      <DependentUpon>QuestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="QuestSelectionForm.resx">
       <DependentUpon>QuestSelectionForm.cs</DependentUpon>
     </EmbeddedResource>

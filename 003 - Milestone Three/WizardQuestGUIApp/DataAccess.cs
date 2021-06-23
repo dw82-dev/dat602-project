@@ -18,6 +18,8 @@ namespace WizardQuestGUIApp
         public static string UserID;
         public static string AdministrationStatus = "";
         public static string QuestStatus = "";
+        public static string QuestID;
+        public static string MoveStatus = "";
 
         public static MySqlConnection MySqlConnection
         {
@@ -112,6 +114,17 @@ namespace WizardQuestGUIApp
             DataAccess.LoginStatus = (userDeleteDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
+        public void GetQuestID(string pQuestName)
+        {
+            List<MySqlParameter> parameterList = new List<MySqlParameter>();
+            var questName = new MySqlParameter("QuestName", MySqlDbType.VarChar, 50);
+            questName.Value = pQuestName;
+            parameterList.Add(questName);
+
+            var getQuestID = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getQuestID(@QuestName)", parameterList.ToArray());
+            DataAccess.QuestID = (getQuestID.Tables[0].Rows[0])["message"].ToString();
+        }
+
         public void NewQuest(int pUserID, string pQuestName)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
@@ -140,7 +153,7 @@ namespace WizardQuestGUIApp
             return (joinQuestDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string UserMove(int pSessionID, int pUserID, int pxPosition, int pyPosition)
+        public void UserMove(int pSessionID, int pUserID, int pxPosition, int pyPosition)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var sessionID = new MySqlParameter("SessionID", MySqlDbType.Int16);
@@ -157,7 +170,7 @@ namespace WizardQuestGUIApp
             parameterList.Add(yPosition);
 
             var userMoveDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userMove(@SessionID, @UserID, @xPosition, @yPosition)", parameterList.ToArray());
-            return (userMoveDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.MoveStatus = (userMoveDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public string UserChat(int pUserID, int pQuestID, string pMessage)
@@ -177,7 +190,7 @@ namespace WizardQuestGUIApp
             return (userChatDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
-        public string LeaveQuest(int pUserID, int pQuestID)
+        public void LeaveQuest(int pUserID, int pQuestID)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
             var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
@@ -188,7 +201,7 @@ namespace WizardQuestGUIApp
             parameterList.Add(questID);
 
             var leaveQuestDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call leaveQuest(@UserID, @QuestID)", parameterList.ToArray());
-            return (leaveQuestDataSet.Tables[0].Rows[0])["message"].ToString();
+            DataAccess.QuestStatus = (leaveQuestDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public void AdministratorAdd(string pUserName, string pUserPassword, string pEmail, bool pAdministrator)
@@ -318,6 +331,7 @@ namespace WizardQuestGUIApp
             foreach (DataRow row in dataSet.Tables[0].Rows)
             {
                 ActiveQuest activeQuest = new ActiveQuest();
+                activeQuest.QuestID = row.Field<int>("QuestID");
                 activeQuest.QuestName = row.Field<string>("QuestName");
                 activeQuestList.Add(activeQuest);
             }

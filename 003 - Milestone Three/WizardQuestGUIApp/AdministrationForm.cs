@@ -61,14 +61,16 @@ namespace WizardQuestGUIApp
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            this.QuestSelectionForm.Closed += (s, args) => Close();
-            this.QuestSelectionForm.Show();
+            DialogResult = DialogResult.OK;
+            this.Close();
+            //this.QuestSelectionForm.Closed += (s, args) => Close();
+            //this.QuestSelectionForm.Show();
+            //this.QuestSelectionForm.UpdateDisplay();
         }
 
         private void AdministrationForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.QuestSelectionForm.Show();
+            DialogResult = DialogResult.OK;
         }
 
         private void modifyButton_Click(object sender, EventArgs e)

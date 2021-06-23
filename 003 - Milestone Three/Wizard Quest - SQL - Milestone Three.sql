@@ -673,7 +673,7 @@ begin
 									end if;
 								end loop findNextPlayer;
 								
-								select 'Valid Move' as message;
+								select 'Success' as message;
 					else
 								select 'Tile In Use' as message;
 					end if;
@@ -929,7 +929,7 @@ begin
 							end loop findNextPlayer;
                 end if;
                 
-				select 'Quest Left' as message;
+				select 'Success' as message;
 	else
 				select 'Invalid' as message;
 	end if;
@@ -1129,6 +1129,21 @@ begin
 end //
 delimiter ;
 
+drop procedure if exists getQuestID;
+delimiter //
+create procedure getQuestID(in pQuestName varchar(50))
+begin
+	declare currentQuestID int default null;
+    
+	select QuestID
+    from tblQuest
+    where QuestName = pQuestName
+    into currentQuestID;
+    
+    select currentQuestID as message;
+end //
+delimiter ;
+
 drop procedure if exists getAllUsers;
 delimiter //
 create procedure getAllUsers()
@@ -1152,12 +1167,9 @@ drop procedure if exists getActiveQuest;
 delimiter //
 create procedure getActiveQuest(in pUserID int)
 begin
-	select QuestName
+	select QuestID, QuestName
     from tblQuest
-    where QuestStatus = true
-    and QuestID <>	(select QuestID
-					from tblSession
-                    where UserID = pUserID);
+    where QuestStatus = true;
 end //
 delimiter ;
 
