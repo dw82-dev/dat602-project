@@ -29,7 +29,7 @@ namespace WizardQuestGUIApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.chatListBox = new System.Windows.Forms.ListBox();
+            this.chatList = new System.Windows.Forms.ListBox();
             this.leaveQuestButton = new System.Windows.Forms.Button();
             this.sendButton = new System.Windows.Forms.Button();
             this.chatText = new System.Windows.Forms.TextBox();
@@ -86,11 +86,11 @@ namespace WizardQuestGUIApp
             // 
             // chatListBox
             // 
-            this.chatListBox.FormattingEnabled = true;
-            this.chatListBox.Location = new System.Drawing.Point(30, 490);
-            this.chatListBox.Name = "chatListBox";
-            this.chatListBox.Size = new System.Drawing.Size(514, 95);
-            this.chatListBox.TabIndex = 0;
+            this.chatList.FormattingEnabled = true;
+            this.chatList.Location = new System.Drawing.Point(30, 490);
+            this.chatList.Name = "chatListBox";
+            this.chatList.Size = new System.Drawing.Size(514, 95);
+            this.chatList.TabIndex = 0;
             // 
             // leaveQuestButton
             // 
@@ -600,7 +600,7 @@ namespace WizardQuestGUIApp
             this.Controls.Add(this.chatText);
             this.Controls.Add(this.leaveQuestButton);
             this.Controls.Add(this.sendButton);
-            this.Controls.Add(this.chatListBox);
+            this.Controls.Add(this.chatList);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "QuestForm";
             this.Text = "Wizard Quest - Now You\'re Questing";
@@ -614,7 +614,7 @@ namespace WizardQuestGUIApp
 
         #endregion
 
-        private System.Windows.Forms.ListBox chatListBox;
+        private System.Windows.Forms.ListBox chatList;
         private System.Windows.Forms.Button leaveQuestButton;
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.TextBox chatText;

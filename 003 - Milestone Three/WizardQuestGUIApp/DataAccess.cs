@@ -190,6 +190,29 @@ namespace WizardQuestGUIApp
             DataAccess.QuestStatus = (userChatDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
+        public List<Chat> GetQuestChat(int pQuestID)
+        {
+            List<MySqlParameter> parameterList = new List<MySqlParameter>();
+            List<Chat> questChatList = new List<Chat>();
+
+            var questID = new MySqlParameter("QuestID", MySqlDbType.Int16);
+            questID.Value = pQuestID;
+            parameterList.Add(questID);
+
+            var dataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getQuestChat(@QuestID)", parameterList.ToArray());
+
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                Chat chat = new Chat();
+                chat.ChatID = row.Field<int>("ChatID");
+                chat.Username = row.Field<string>("Username");
+                chat.Message = row.Field<string>("Message");
+                questChatList.Add(chat);
+            }
+
+            return questChatList;
+        }
+
         public void LeaveQuest(int pUserID, int pQuestID)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();

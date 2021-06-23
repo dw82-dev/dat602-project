@@ -32,6 +32,7 @@ namespace WizardQuestGUIApp
         {
             QuestScore();
             UserInventory();
+            QuestChat();
         }
 
         private void GetQuestID()
@@ -59,7 +60,10 @@ namespace WizardQuestGUIApp
 
         private void QuestChat()
         {
-
+            chatList.DataSource = null;
+            DataAccess dataAccess = new DataAccess();
+            chatDataSource = dataAccess.GetQuestChat(_questID);
+            chatList.DataSource = chatDataSource;
         }
 
         private void UserMove(object sender, EventArgs e)
@@ -151,6 +155,7 @@ namespace WizardQuestGUIApp
                 else if (DataAccess.QuestStatus == "Success")
                 {
                     chatText.Clear();
+                    QuestChat();
                 }
             }
         }

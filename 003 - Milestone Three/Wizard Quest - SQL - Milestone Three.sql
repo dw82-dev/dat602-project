@@ -1212,6 +1212,19 @@ begin
 end //
 delimiter ;
 
+drop procedure if exists getQuestChat;
+delimiter //
+create procedure getQuestChat(pQuestID int)
+begin
+    select c.ChatID as ChatID, u.UserName as UserName, c.Message as Message
+	from tblChat as c
+	join tblUser as u
+	on c.UserID = u.UserID
+	where QuestID = pQuestID
+    order by ChatID desc;
+end //
+delimiter ;
+
 drop procedure if exists getUserInventory
 delimiter //
 create procedure getUserInventory(pUserID int, pQuestID int)
