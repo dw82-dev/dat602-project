@@ -598,7 +598,6 @@ begin
 					if exists	(select TileID
 								from tblTile
 								where TileID = targetTileID
-                                and targetTileID <> startTileID
 								and TileActive = true) then
 								
 								update tblSession
@@ -1144,6 +1143,45 @@ begin
     into currentQuestID;
     
     select currentQuestID as message;
+end //
+delimiter ;
+
+drop procedure if exists getHomeTileID;
+delimiter //
+create procedure getHomeTileID(in pUserID int, pQuestID int)
+begin
+	declare currentMapID int default null;
+    declare homeTileID int default null;
+    
+	select MapID
+    from tblSession
+    where UserID = pUserID
+    and QuestID = pQuestID
+    into currentMapID;
+    
+    select TileID
+    from tblTile
+    where MapID = currentMapID
+    and xPosition = 1
+    and yPosition = 1
+    into homeTileID;
+    
+	select homeTileID as message;
+end //
+delimiter ;
+
+drop procedure if exists getCurrentTileID;
+delimiter //
+create procedure getCurrentTileID(in pUserID int, pQuestID int)
+begin
+	declare currentTileID int default null;
+    select TileID
+    from tblSession
+    where QuestID = pQuestID
+    and UserID = pUserID
+    into currentTileID;
+    
+	select currentTileID as message;
 end //
 delimiter ;
 

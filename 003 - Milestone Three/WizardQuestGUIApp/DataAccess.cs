@@ -19,6 +19,8 @@ namespace WizardQuestGUIApp
         public static string AdministrationStatus = "";
         public static string QuestStatus = "";
         public static string QuestID;
+        public static string HomeTileID = "";
+        public static string CurrentTileID = "";
         public static string MoveStatus = "";
 
         public static MySqlConnection MySqlConnection
@@ -123,6 +125,34 @@ namespace WizardQuestGUIApp
 
             var getQuestID = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getQuestID(@QuestName)", parameterList.ToArray());
             DataAccess.QuestID = (getQuestID.Tables[0].Rows[0])["message"].ToString();
+        }
+
+        public void GetHomeTileID(int pUserID, int pQuestID)
+        {
+            List<MySqlParameter> parameterList = new List<MySqlParameter>();
+            var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
+            var questID = new MySqlParameter("QuestID", MySqlDbType.Int16);
+            userID.Value = pUserID;
+            questID.Value = pQuestID;
+            parameterList.Add(userID);
+            parameterList.Add(questID);
+
+            var homeTileIDDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getHomeTileID(@UserID, @QuestID)", parameterList.ToArray());
+            DataAccess.HomeTileID = (homeTileIDDataSet.Tables[0].Rows[0])["message"].ToString();
+        }
+
+        public void GetCurrentTileID(int pUserID, int pQuestID)
+        {
+            List<MySqlParameter> parameterList = new List<MySqlParameter>();
+            var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
+            var questID = new MySqlParameter("QuestID", MySqlDbType.Int16);
+            userID.Value = pUserID;
+            questID.Value = pQuestID;
+            parameterList.Add(userID);
+            parameterList.Add(questID);
+
+            var homeTileIDDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getCurrentTileID(@UserID, @QuestID)", parameterList.ToArray());
+            DataAccess.CurrentTileID = (homeTileIDDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public void NewQuest(int pUserID, string pQuestName)

@@ -138,6 +138,7 @@ namespace WizardQuestGUIApp
             this.tile98 = new System.Windows.Forms.Button();
             this.tile99 = new System.Windows.Forms.Button();
             this.tile100 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.inventoryData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userQuestScoreData)).BeginInit();
             this.SuspendLayout();
@@ -223,7 +224,7 @@ namespace WizardQuestGUIApp
             this.tile1.Size = new System.Drawing.Size(33, 23);
             this.tile1.TabIndex = 16;
             this.tile1.UseVisualStyleBackColor = true;
-            this.tile1.Click += new System.EventHandler(this.button_Click);
+            this.tile1.Click += new System.EventHandler(this.UserMove);
             // 
             // tile2
             // 
@@ -233,7 +234,7 @@ namespace WizardQuestGUIApp
             this.tile2.Size = new System.Drawing.Size(33, 23);
             this.tile2.TabIndex = 17;
             this.tile2.UseVisualStyleBackColor = true;
-            this.tile2.Click += new System.EventHandler(this.button_Click);
+            this.tile2.Click += new System.EventHandler(this.UserMove);
             // 
             // userQuestScoreData
             // 
@@ -251,7 +252,7 @@ namespace WizardQuestGUIApp
             this.tile3.Size = new System.Drawing.Size(33, 23);
             this.tile3.TabIndex = 59;
             this.tile3.UseVisualStyleBackColor = true;
-            this.tile3.Click += new System.EventHandler(this.button_Click);
+            this.tile3.Click += new System.EventHandler(this.UserMove);
             // 
             // tile4
             // 
@@ -261,7 +262,7 @@ namespace WizardQuestGUIApp
             this.tile4.Size = new System.Drawing.Size(33, 23);
             this.tile4.TabIndex = 60;
             this.tile4.UseVisualStyleBackColor = true;
-            this.tile4.Click += new System.EventHandler(this.button_Click);
+            this.tile4.Click += new System.EventHandler(this.UserMove);
             // 
             // tile5
             // 
@@ -271,7 +272,7 @@ namespace WizardQuestGUIApp
             this.tile5.Size = new System.Drawing.Size(33, 23);
             this.tile5.TabIndex = 61;
             this.tile5.UseVisualStyleBackColor = true;
-            this.tile5.Click += new System.EventHandler(this.button_Click);
+            this.tile5.Click += new System.EventHandler(this.UserMove);
             // 
             // tile6
             // 
@@ -281,7 +282,7 @@ namespace WizardQuestGUIApp
             this.tile6.Size = new System.Drawing.Size(33, 23);
             this.tile6.TabIndex = 62;
             this.tile6.UseVisualStyleBackColor = true;
-            this.tile6.Click += new System.EventHandler(this.button_Click);
+            this.tile6.Click += new System.EventHandler(this.UserMove);
             // 
             // tile7
             // 
@@ -291,7 +292,7 @@ namespace WizardQuestGUIApp
             this.tile7.Size = new System.Drawing.Size(33, 23);
             this.tile7.TabIndex = 63;
             this.tile7.UseVisualStyleBackColor = true;
-            this.tile7.Click += new System.EventHandler(this.button_Click);
+            this.tile7.Click += new System.EventHandler(this.UserMove);
             // 
             // tile8
             // 
@@ -301,7 +302,7 @@ namespace WizardQuestGUIApp
             this.tile8.Size = new System.Drawing.Size(33, 23);
             this.tile8.TabIndex = 64;
             this.tile8.UseVisualStyleBackColor = true;
-            this.tile8.Click += new System.EventHandler(this.button_Click);
+            this.tile8.Click += new System.EventHandler(this.UserMove);
             // 
             // tile9
             // 
@@ -311,7 +312,7 @@ namespace WizardQuestGUIApp
             this.tile9.Size = new System.Drawing.Size(33, 23);
             this.tile9.TabIndex = 65;
             this.tile9.UseVisualStyleBackColor = true;
-            this.tile9.Click += new System.EventHandler(this.button_Click);
+            this.tile9.Click += new System.EventHandler(this.UserMove);
             // 
             // tile10
             // 
@@ -321,7 +322,7 @@ namespace WizardQuestGUIApp
             this.tile10.Size = new System.Drawing.Size(33, 23);
             this.tile10.TabIndex = 66;
             this.tile10.UseVisualStyleBackColor = true;
-            this.tile10.Click += new System.EventHandler(this.button_Click);
+            this.tile10.Click += new System.EventHandler(this.UserMove);
             // 
             // tile11
             // 
@@ -331,7 +332,7 @@ namespace WizardQuestGUIApp
             this.tile11.Size = new System.Drawing.Size(33, 23);
             this.tile11.TabIndex = 67;
             this.tile11.UseVisualStyleBackColor = true;
-            this.tile11.Click += new System.EventHandler(this.button_Click);
+            this.tile11.Click += new System.EventHandler(this.UserMove);
             // 
             // tile12
             // 
@@ -341,7 +342,7 @@ namespace WizardQuestGUIApp
             this.tile12.Size = new System.Drawing.Size(33, 23);
             this.tile12.TabIndex = 68;
             this.tile12.UseVisualStyleBackColor = true;
-            this.tile12.Click += new System.EventHandler(this.button_Click);
+            this.tile12.Click += new System.EventHandler(this.UserMove);
             // 
             // tile13
             // 
@@ -351,7 +352,7 @@ namespace WizardQuestGUIApp
             this.tile13.Size = new System.Drawing.Size(33, 23);
             this.tile13.TabIndex = 69;
             this.tile13.UseVisualStyleBackColor = true;
-            this.tile13.Click += new System.EventHandler(this.button_Click);
+            this.tile13.Click += new System.EventHandler(this.UserMove);
             // 
             // tile14
             // 
@@ -361,7 +362,7 @@ namespace WizardQuestGUIApp
             this.tile14.Size = new System.Drawing.Size(33, 23);
             this.tile14.TabIndex = 70;
             this.tile14.UseVisualStyleBackColor = true;
-            this.tile14.Click += new System.EventHandler(this.button_Click);
+            this.tile14.Click += new System.EventHandler(this.UserMove);
             // 
             // tile15
             // 
@@ -371,7 +372,7 @@ namespace WizardQuestGUIApp
             this.tile15.Size = new System.Drawing.Size(33, 23);
             this.tile15.TabIndex = 71;
             this.tile15.UseVisualStyleBackColor = true;
-            this.tile15.Click += new System.EventHandler(this.button_Click);
+            this.tile15.Click += new System.EventHandler(this.UserMove);
             // 
             // tile16
             // 
@@ -381,7 +382,7 @@ namespace WizardQuestGUIApp
             this.tile16.Size = new System.Drawing.Size(33, 23);
             this.tile16.TabIndex = 72;
             this.tile16.UseVisualStyleBackColor = true;
-            this.tile16.Click += new System.EventHandler(this.button_Click);
+            this.tile16.Click += new System.EventHandler(this.UserMove);
             // 
             // tile17
             // 
@@ -391,7 +392,7 @@ namespace WizardQuestGUIApp
             this.tile17.Size = new System.Drawing.Size(33, 23);
             this.tile17.TabIndex = 73;
             this.tile17.UseVisualStyleBackColor = true;
-            this.tile17.Click += new System.EventHandler(this.button_Click);
+            this.tile17.Click += new System.EventHandler(this.UserMove);
             // 
             // tile18
             // 
@@ -401,7 +402,7 @@ namespace WizardQuestGUIApp
             this.tile18.Size = new System.Drawing.Size(33, 23);
             this.tile18.TabIndex = 74;
             this.tile18.UseVisualStyleBackColor = true;
-            this.tile18.Click += new System.EventHandler(this.button_Click);
+            this.tile18.Click += new System.EventHandler(this.UserMove);
             // 
             // tile19
             // 
@@ -411,7 +412,7 @@ namespace WizardQuestGUIApp
             this.tile19.Size = new System.Drawing.Size(33, 23);
             this.tile19.TabIndex = 75;
             this.tile19.UseVisualStyleBackColor = true;
-            this.tile19.Click += new System.EventHandler(this.button_Click);
+            this.tile19.Click += new System.EventHandler(this.UserMove);
             // 
             // tile20
             // 
@@ -421,17 +422,17 @@ namespace WizardQuestGUIApp
             this.tile20.Size = new System.Drawing.Size(33, 23);
             this.tile20.TabIndex = 76;
             this.tile20.UseVisualStyleBackColor = true;
-            this.tile20.Click += new System.EventHandler(this.button_Click);
+            this.tile20.Click += new System.EventHandler(this.UserMove);
             // 
             // tile21
             // 
-            this.tile21.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.tile21.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.tile21.Location = new System.Drawing.Point(77, 132);
             this.tile21.Name = "tile21";
             this.tile21.Size = new System.Drawing.Size(33, 23);
             this.tile21.TabIndex = 77;
             this.tile21.UseVisualStyleBackColor = true;
-            this.tile21.Click += new System.EventHandler(this.button_Click);
+            this.tile21.Click += new System.EventHandler(this.UserMove);
             // 
             // tile22
             // 
@@ -441,7 +442,7 @@ namespace WizardQuestGUIApp
             this.tile22.Size = new System.Drawing.Size(33, 23);
             this.tile22.TabIndex = 78;
             this.tile22.UseVisualStyleBackColor = true;
-            this.tile22.Click += new System.EventHandler(this.button_Click);
+            this.tile22.Click += new System.EventHandler(this.UserMove);
             // 
             // tile23
             // 
@@ -451,7 +452,7 @@ namespace WizardQuestGUIApp
             this.tile23.Size = new System.Drawing.Size(33, 23);
             this.tile23.TabIndex = 79;
             this.tile23.UseVisualStyleBackColor = true;
-            this.tile23.Click += new System.EventHandler(this.button_Click);
+            this.tile23.Click += new System.EventHandler(this.UserMove);
             // 
             // tile24
             // 
@@ -461,7 +462,7 @@ namespace WizardQuestGUIApp
             this.tile24.Size = new System.Drawing.Size(33, 23);
             this.tile24.TabIndex = 80;
             this.tile24.UseVisualStyleBackColor = true;
-            this.tile24.Click += new System.EventHandler(this.button_Click);
+            this.tile24.Click += new System.EventHandler(this.UserMove);
             // 
             // tile25
             // 
@@ -471,7 +472,7 @@ namespace WizardQuestGUIApp
             this.tile25.Size = new System.Drawing.Size(33, 23);
             this.tile25.TabIndex = 81;
             this.tile25.UseVisualStyleBackColor = true;
-            this.tile25.Click += new System.EventHandler(this.button_Click);
+            this.tile25.Click += new System.EventHandler(this.UserMove);
             // 
             // tile26
             // 
@@ -481,7 +482,7 @@ namespace WizardQuestGUIApp
             this.tile26.Size = new System.Drawing.Size(33, 23);
             this.tile26.TabIndex = 82;
             this.tile26.UseVisualStyleBackColor = true;
-            this.tile26.Click += new System.EventHandler(this.button_Click);
+            this.tile26.Click += new System.EventHandler(this.UserMove);
             // 
             // tile27
             // 
@@ -491,7 +492,7 @@ namespace WizardQuestGUIApp
             this.tile27.Size = new System.Drawing.Size(33, 23);
             this.tile27.TabIndex = 83;
             this.tile27.UseVisualStyleBackColor = true;
-            this.tile27.Click += new System.EventHandler(this.button_Click);
+            this.tile27.Click += new System.EventHandler(this.UserMove);
             // 
             // tile28
             // 
@@ -501,7 +502,7 @@ namespace WizardQuestGUIApp
             this.tile28.Size = new System.Drawing.Size(33, 23);
             this.tile28.TabIndex = 84;
             this.tile28.UseVisualStyleBackColor = true;
-            this.tile28.Click += new System.EventHandler(this.button_Click);
+            this.tile28.Click += new System.EventHandler(this.UserMove);
             // 
             // tile29
             // 
@@ -511,7 +512,7 @@ namespace WizardQuestGUIApp
             this.tile29.Size = new System.Drawing.Size(33, 23);
             this.tile29.TabIndex = 85;
             this.tile29.UseVisualStyleBackColor = true;
-            this.tile29.Click += new System.EventHandler(this.button_Click);
+            this.tile29.Click += new System.EventHandler(this.UserMove);
             // 
             // tile30
             // 
@@ -521,7 +522,7 @@ namespace WizardQuestGUIApp
             this.tile30.Size = new System.Drawing.Size(33, 23);
             this.tile30.TabIndex = 86;
             this.tile30.UseVisualStyleBackColor = true;
-            this.tile30.Click += new System.EventHandler(this.button_Click);
+            this.tile30.Click += new System.EventHandler(this.UserMove);
             // 
             // tile31
             // 
@@ -531,7 +532,7 @@ namespace WizardQuestGUIApp
             this.tile31.Size = new System.Drawing.Size(33, 23);
             this.tile31.TabIndex = 87;
             this.tile31.UseVisualStyleBackColor = true;
-            this.tile31.Click += new System.EventHandler(this.button_Click);
+            this.tile31.Click += new System.EventHandler(this.UserMove);
             // 
             // tile32
             // 
@@ -541,7 +542,7 @@ namespace WizardQuestGUIApp
             this.tile32.Size = new System.Drawing.Size(33, 23);
             this.tile32.TabIndex = 88;
             this.tile32.UseVisualStyleBackColor = true;
-            this.tile32.Click += new System.EventHandler(this.button_Click);
+            this.tile32.Click += new System.EventHandler(this.UserMove);
             // 
             // tile33
             // 
@@ -551,7 +552,7 @@ namespace WizardQuestGUIApp
             this.tile33.Size = new System.Drawing.Size(33, 23);
             this.tile33.TabIndex = 89;
             this.tile33.UseVisualStyleBackColor = true;
-            this.tile33.Click += new System.EventHandler(this.button_Click);
+            this.tile33.Click += new System.EventHandler(this.UserMove);
             // 
             // tile34
             // 
@@ -561,7 +562,7 @@ namespace WizardQuestGUIApp
             this.tile34.Size = new System.Drawing.Size(33, 23);
             this.tile34.TabIndex = 90;
             this.tile34.UseVisualStyleBackColor = true;
-            this.tile34.Click += new System.EventHandler(this.button_Click);
+            this.tile34.Click += new System.EventHandler(this.UserMove);
             // 
             // tile35
             // 
@@ -571,7 +572,7 @@ namespace WizardQuestGUIApp
             this.tile35.Size = new System.Drawing.Size(33, 23);
             this.tile35.TabIndex = 91;
             this.tile35.UseVisualStyleBackColor = true;
-            this.tile35.Click += new System.EventHandler(this.button_Click);
+            this.tile35.Click += new System.EventHandler(this.UserMove);
             // 
             // tile36
             // 
@@ -581,7 +582,7 @@ namespace WizardQuestGUIApp
             this.tile36.Size = new System.Drawing.Size(33, 23);
             this.tile36.TabIndex = 92;
             this.tile36.UseVisualStyleBackColor = true;
-            this.tile36.Click += new System.EventHandler(this.button_Click);
+            this.tile36.Click += new System.EventHandler(this.UserMove);
             // 
             // tile37
             // 
@@ -591,7 +592,7 @@ namespace WizardQuestGUIApp
             this.tile37.Size = new System.Drawing.Size(33, 23);
             this.tile37.TabIndex = 93;
             this.tile37.UseVisualStyleBackColor = true;
-            this.tile37.Click += new System.EventHandler(this.button_Click);
+            this.tile37.Click += new System.EventHandler(this.UserMove);
             // 
             // tile38
             // 
@@ -601,7 +602,7 @@ namespace WizardQuestGUIApp
             this.tile38.Size = new System.Drawing.Size(33, 23);
             this.tile38.TabIndex = 94;
             this.tile38.UseVisualStyleBackColor = true;
-            this.tile38.Click += new System.EventHandler(this.button_Click);
+            this.tile38.Click += new System.EventHandler(this.UserMove);
             // 
             // tile39
             // 
@@ -611,7 +612,7 @@ namespace WizardQuestGUIApp
             this.tile39.Size = new System.Drawing.Size(33, 23);
             this.tile39.TabIndex = 95;
             this.tile39.UseVisualStyleBackColor = true;
-            this.tile39.Click += new System.EventHandler(this.button_Click);
+            this.tile39.Click += new System.EventHandler(this.UserMove);
             // 
             // tile40
             // 
@@ -621,7 +622,7 @@ namespace WizardQuestGUIApp
             this.tile40.Size = new System.Drawing.Size(33, 23);
             this.tile40.TabIndex = 96;
             this.tile40.UseVisualStyleBackColor = true;
-            this.tile40.Click += new System.EventHandler(this.button_Click);
+            this.tile40.Click += new System.EventHandler(this.UserMove);
             // 
             // tile41
             // 
@@ -631,7 +632,7 @@ namespace WizardQuestGUIApp
             this.tile41.Size = new System.Drawing.Size(33, 23);
             this.tile41.TabIndex = 97;
             this.tile41.UseVisualStyleBackColor = true;
-            this.tile41.Click += new System.EventHandler(this.button_Click);
+            this.tile41.Click += new System.EventHandler(this.UserMove);
             // 
             // tile42
             // 
@@ -641,7 +642,7 @@ namespace WizardQuestGUIApp
             this.tile42.Size = new System.Drawing.Size(33, 23);
             this.tile42.TabIndex = 98;
             this.tile42.UseVisualStyleBackColor = true;
-            this.tile42.Click += new System.EventHandler(this.button_Click);
+            this.tile42.Click += new System.EventHandler(this.UserMove);
             // 
             // tile43
             // 
@@ -651,7 +652,7 @@ namespace WizardQuestGUIApp
             this.tile43.Size = new System.Drawing.Size(33, 23);
             this.tile43.TabIndex = 99;
             this.tile43.UseVisualStyleBackColor = true;
-            this.tile43.Click += new System.EventHandler(this.button_Click);
+            this.tile43.Click += new System.EventHandler(this.UserMove);
             // 
             // tile44
             // 
@@ -661,7 +662,7 @@ namespace WizardQuestGUIApp
             this.tile44.Size = new System.Drawing.Size(33, 23);
             this.tile44.TabIndex = 100;
             this.tile44.UseVisualStyleBackColor = true;
-            this.tile44.Click += new System.EventHandler(this.button_Click);
+            this.tile44.Click += new System.EventHandler(this.UserMove);
             // 
             // tile45
             // 
@@ -671,7 +672,7 @@ namespace WizardQuestGUIApp
             this.tile45.Size = new System.Drawing.Size(33, 23);
             this.tile45.TabIndex = 101;
             this.tile45.UseVisualStyleBackColor = true;
-            this.tile45.Click += new System.EventHandler(this.button_Click);
+            this.tile45.Click += new System.EventHandler(this.UserMove);
             // 
             // tile46
             // 
@@ -681,7 +682,7 @@ namespace WizardQuestGUIApp
             this.tile46.Size = new System.Drawing.Size(33, 23);
             this.tile46.TabIndex = 102;
             this.tile46.UseVisualStyleBackColor = true;
-            this.tile46.Click += new System.EventHandler(this.button_Click);
+            this.tile46.Click += new System.EventHandler(this.UserMove);
             // 
             // tile47
             // 
@@ -691,7 +692,7 @@ namespace WizardQuestGUIApp
             this.tile47.Size = new System.Drawing.Size(33, 23);
             this.tile47.TabIndex = 103;
             this.tile47.UseVisualStyleBackColor = true;
-            this.tile47.Click += new System.EventHandler(this.button_Click);
+            this.tile47.Click += new System.EventHandler(this.UserMove);
             // 
             // tile48
             // 
@@ -701,7 +702,7 @@ namespace WizardQuestGUIApp
             this.tile48.Size = new System.Drawing.Size(33, 23);
             this.tile48.TabIndex = 104;
             this.tile48.UseVisualStyleBackColor = true;
-            this.tile48.Click += new System.EventHandler(this.button_Click);
+            this.tile48.Click += new System.EventHandler(this.UserMove);
             // 
             // tile49
             // 
@@ -711,7 +712,7 @@ namespace WizardQuestGUIApp
             this.tile49.Size = new System.Drawing.Size(33, 23);
             this.tile49.TabIndex = 105;
             this.tile49.UseVisualStyleBackColor = true;
-            this.tile49.Click += new System.EventHandler(this.button_Click);
+            this.tile49.Click += new System.EventHandler(this.UserMove);
             // 
             // tile50
             // 
@@ -721,7 +722,7 @@ namespace WizardQuestGUIApp
             this.tile50.Size = new System.Drawing.Size(33, 23);
             this.tile50.TabIndex = 106;
             this.tile50.UseVisualStyleBackColor = true;
-            this.tile50.Click += new System.EventHandler(this.button_Click);
+            this.tile50.Click += new System.EventHandler(this.UserMove);
             // 
             // tile51
             // 
@@ -731,7 +732,7 @@ namespace WizardQuestGUIApp
             this.tile51.Size = new System.Drawing.Size(33, 23);
             this.tile51.TabIndex = 107;
             this.tile51.UseVisualStyleBackColor = true;
-            this.tile51.Click += new System.EventHandler(this.button_Click);
+            this.tile51.Click += new System.EventHandler(this.UserMove);
             // 
             // tile52
             // 
@@ -741,7 +742,7 @@ namespace WizardQuestGUIApp
             this.tile52.Size = new System.Drawing.Size(33, 23);
             this.tile52.TabIndex = 108;
             this.tile52.UseVisualStyleBackColor = true;
-            this.tile52.Click += new System.EventHandler(this.button_Click);
+            this.tile52.Click += new System.EventHandler(this.UserMove);
             // 
             // tile53
             // 
@@ -751,7 +752,7 @@ namespace WizardQuestGUIApp
             this.tile53.Size = new System.Drawing.Size(33, 23);
             this.tile53.TabIndex = 109;
             this.tile53.UseVisualStyleBackColor = true;
-            this.tile53.Click += new System.EventHandler(this.button_Click);
+            this.tile53.Click += new System.EventHandler(this.UserMove);
             // 
             // tile54
             // 
@@ -761,7 +762,7 @@ namespace WizardQuestGUIApp
             this.tile54.Size = new System.Drawing.Size(33, 23);
             this.tile54.TabIndex = 110;
             this.tile54.UseVisualStyleBackColor = true;
-            this.tile54.Click += new System.EventHandler(this.button_Click);
+            this.tile54.Click += new System.EventHandler(this.UserMove);
             // 
             // tile55
             // 
@@ -771,7 +772,7 @@ namespace WizardQuestGUIApp
             this.tile55.Size = new System.Drawing.Size(33, 23);
             this.tile55.TabIndex = 111;
             this.tile55.UseVisualStyleBackColor = true;
-            this.tile55.Click += new System.EventHandler(this.button_Click);
+            this.tile55.Click += new System.EventHandler(this.UserMove);
             // 
             // tile56
             // 
@@ -781,7 +782,7 @@ namespace WizardQuestGUIApp
             this.tile56.Size = new System.Drawing.Size(33, 23);
             this.tile56.TabIndex = 112;
             this.tile56.UseVisualStyleBackColor = true;
-            this.tile56.Click += new System.EventHandler(this.button_Click);
+            this.tile56.Click += new System.EventHandler(this.UserMove);
             // 
             // tile57
             // 
@@ -791,7 +792,7 @@ namespace WizardQuestGUIApp
             this.tile57.Size = new System.Drawing.Size(33, 23);
             this.tile57.TabIndex = 113;
             this.tile57.UseVisualStyleBackColor = true;
-            this.tile57.Click += new System.EventHandler(this.button_Click);
+            this.tile57.Click += new System.EventHandler(this.UserMove);
             // 
             // tile58
             // 
@@ -801,7 +802,7 @@ namespace WizardQuestGUIApp
             this.tile58.Size = new System.Drawing.Size(33, 23);
             this.tile58.TabIndex = 114;
             this.tile58.UseVisualStyleBackColor = true;
-            this.tile58.Click += new System.EventHandler(this.button_Click);
+            this.tile58.Click += new System.EventHandler(this.UserMove);
             // 
             // tile59
             // 
@@ -811,7 +812,7 @@ namespace WizardQuestGUIApp
             this.tile59.Size = new System.Drawing.Size(33, 23);
             this.tile59.TabIndex = 115;
             this.tile59.UseVisualStyleBackColor = true;
-            this.tile59.Click += new System.EventHandler(this.button_Click);
+            this.tile59.Click += new System.EventHandler(this.UserMove);
             // 
             // tile60
             // 
@@ -821,7 +822,7 @@ namespace WizardQuestGUIApp
             this.tile60.Size = new System.Drawing.Size(33, 23);
             this.tile60.TabIndex = 116;
             this.tile60.UseVisualStyleBackColor = true;
-            this.tile60.Click += new System.EventHandler(this.button_Click);
+            this.tile60.Click += new System.EventHandler(this.UserMove);
             // 
             // tile61
             // 
@@ -831,7 +832,7 @@ namespace WizardQuestGUIApp
             this.tile61.Size = new System.Drawing.Size(33, 23);
             this.tile61.TabIndex = 117;
             this.tile61.UseVisualStyleBackColor = true;
-            this.tile61.Click += new System.EventHandler(this.button_Click);
+            this.tile61.Click += new System.EventHandler(this.UserMove);
             // 
             // tile62
             // 
@@ -841,7 +842,7 @@ namespace WizardQuestGUIApp
             this.tile62.Size = new System.Drawing.Size(33, 23);
             this.tile62.TabIndex = 118;
             this.tile62.UseVisualStyleBackColor = true;
-            this.tile62.Click += new System.EventHandler(this.button_Click);
+            this.tile62.Click += new System.EventHandler(this.UserMove);
             // 
             // tile63
             // 
@@ -851,7 +852,7 @@ namespace WizardQuestGUIApp
             this.tile63.Size = new System.Drawing.Size(33, 23);
             this.tile63.TabIndex = 119;
             this.tile63.UseVisualStyleBackColor = true;
-            this.tile63.Click += new System.EventHandler(this.button_Click);
+            this.tile63.Click += new System.EventHandler(this.UserMove);
             // 
             // tile64
             // 
@@ -861,7 +862,7 @@ namespace WizardQuestGUIApp
             this.tile64.Size = new System.Drawing.Size(33, 23);
             this.tile64.TabIndex = 120;
             this.tile64.UseVisualStyleBackColor = true;
-            this.tile64.Click += new System.EventHandler(this.button_Click);
+            this.tile64.Click += new System.EventHandler(this.UserMove);
             // 
             // tile65
             // 
@@ -871,7 +872,7 @@ namespace WizardQuestGUIApp
             this.tile65.Size = new System.Drawing.Size(33, 23);
             this.tile65.TabIndex = 121;
             this.tile65.UseVisualStyleBackColor = true;
-            this.tile65.Click += new System.EventHandler(this.button_Click);
+            this.tile65.Click += new System.EventHandler(this.UserMove);
             // 
             // tile66
             // 
@@ -881,7 +882,7 @@ namespace WizardQuestGUIApp
             this.tile66.Size = new System.Drawing.Size(33, 23);
             this.tile66.TabIndex = 122;
             this.tile66.UseVisualStyleBackColor = true;
-            this.tile66.Click += new System.EventHandler(this.button_Click);
+            this.tile66.Click += new System.EventHandler(this.UserMove);
             // 
             // tile67
             // 
@@ -891,7 +892,7 @@ namespace WizardQuestGUIApp
             this.tile67.Size = new System.Drawing.Size(33, 23);
             this.tile67.TabIndex = 123;
             this.tile67.UseVisualStyleBackColor = true;
-            this.tile67.Click += new System.EventHandler(this.button_Click);
+            this.tile67.Click += new System.EventHandler(this.UserMove);
             // 
             // tile68
             // 
@@ -901,7 +902,7 @@ namespace WizardQuestGUIApp
             this.tile68.Size = new System.Drawing.Size(33, 23);
             this.tile68.TabIndex = 124;
             this.tile68.UseVisualStyleBackColor = true;
-            this.tile68.Click += new System.EventHandler(this.button_Click);
+            this.tile68.Click += new System.EventHandler(this.UserMove);
             // 
             // tile69
             // 
@@ -911,7 +912,7 @@ namespace WizardQuestGUIApp
             this.tile69.Size = new System.Drawing.Size(33, 23);
             this.tile69.TabIndex = 125;
             this.tile69.UseVisualStyleBackColor = true;
-            this.tile69.Click += new System.EventHandler(this.button_Click);
+            this.tile69.Click += new System.EventHandler(this.UserMove);
             // 
             // tile70
             // 
@@ -921,7 +922,7 @@ namespace WizardQuestGUIApp
             this.tile70.Size = new System.Drawing.Size(33, 23);
             this.tile70.TabIndex = 126;
             this.tile70.UseVisualStyleBackColor = true;
-            this.tile70.Click += new System.EventHandler(this.button_Click);
+            this.tile70.Click += new System.EventHandler(this.UserMove);
             // 
             // tile71
             // 
@@ -931,7 +932,7 @@ namespace WizardQuestGUIApp
             this.tile71.Size = new System.Drawing.Size(33, 23);
             this.tile71.TabIndex = 127;
             this.tile71.UseVisualStyleBackColor = true;
-            this.tile71.Click += new System.EventHandler(this.button_Click);
+            this.tile71.Click += new System.EventHandler(this.UserMove);
             // 
             // tile72
             // 
@@ -941,7 +942,7 @@ namespace WizardQuestGUIApp
             this.tile72.Size = new System.Drawing.Size(33, 23);
             this.tile72.TabIndex = 128;
             this.tile72.UseVisualStyleBackColor = true;
-            this.tile72.Click += new System.EventHandler(this.button_Click);
+            this.tile72.Click += new System.EventHandler(this.UserMove);
             // 
             // tile73
             // 
@@ -951,7 +952,7 @@ namespace WizardQuestGUIApp
             this.tile73.Size = new System.Drawing.Size(33, 23);
             this.tile73.TabIndex = 129;
             this.tile73.UseVisualStyleBackColor = true;
-            this.tile73.Click += new System.EventHandler(this.button_Click);
+            this.tile73.Click += new System.EventHandler(this.UserMove);
             // 
             // tile74
             // 
@@ -961,7 +962,7 @@ namespace WizardQuestGUIApp
             this.tile74.Size = new System.Drawing.Size(33, 23);
             this.tile74.TabIndex = 130;
             this.tile74.UseVisualStyleBackColor = true;
-            this.tile74.Click += new System.EventHandler(this.button_Click);
+            this.tile74.Click += new System.EventHandler(this.UserMove);
             // 
             // tile75
             // 
@@ -971,7 +972,7 @@ namespace WizardQuestGUIApp
             this.tile75.Size = new System.Drawing.Size(33, 23);
             this.tile75.TabIndex = 131;
             this.tile75.UseVisualStyleBackColor = true;
-            this.tile75.Click += new System.EventHandler(this.button_Click);
+            this.tile75.Click += new System.EventHandler(this.UserMove);
             // 
             // tile76
             // 
@@ -981,7 +982,7 @@ namespace WizardQuestGUIApp
             this.tile76.Size = new System.Drawing.Size(33, 23);
             this.tile76.TabIndex = 132;
             this.tile76.UseVisualStyleBackColor = true;
-            this.tile76.Click += new System.EventHandler(this.button_Click);
+            this.tile76.Click += new System.EventHandler(this.UserMove);
             // 
             // tile77
             // 
@@ -991,7 +992,7 @@ namespace WizardQuestGUIApp
             this.tile77.Size = new System.Drawing.Size(33, 23);
             this.tile77.TabIndex = 133;
             this.tile77.UseVisualStyleBackColor = true;
-            this.tile77.Click += new System.EventHandler(this.button_Click);
+            this.tile77.Click += new System.EventHandler(this.UserMove);
             // 
             // tile78
             // 
@@ -1001,7 +1002,7 @@ namespace WizardQuestGUIApp
             this.tile78.Size = new System.Drawing.Size(33, 23);
             this.tile78.TabIndex = 134;
             this.tile78.UseVisualStyleBackColor = true;
-            this.tile78.Click += new System.EventHandler(this.button_Click);
+            this.tile78.Click += new System.EventHandler(this.UserMove);
             // 
             // tile79
             // 
@@ -1011,7 +1012,7 @@ namespace WizardQuestGUIApp
             this.tile79.Size = new System.Drawing.Size(33, 23);
             this.tile79.TabIndex = 135;
             this.tile79.UseVisualStyleBackColor = true;
-            this.tile79.Click += new System.EventHandler(this.button_Click);
+            this.tile79.Click += new System.EventHandler(this.UserMove);
             // 
             // tile80
             // 
@@ -1021,7 +1022,7 @@ namespace WizardQuestGUIApp
             this.tile80.Size = new System.Drawing.Size(33, 23);
             this.tile80.TabIndex = 136;
             this.tile80.UseVisualStyleBackColor = true;
-            this.tile80.Click += new System.EventHandler(this.button_Click);
+            this.tile80.Click += new System.EventHandler(this.UserMove);
             // 
             // tile81
             // 
@@ -1031,7 +1032,7 @@ namespace WizardQuestGUIApp
             this.tile81.Size = new System.Drawing.Size(33, 23);
             this.tile81.TabIndex = 137;
             this.tile81.UseVisualStyleBackColor = true;
-            this.tile81.Click += new System.EventHandler(this.button_Click);
+            this.tile81.Click += new System.EventHandler(this.UserMove);
             // 
             // tile82
             // 
@@ -1041,7 +1042,7 @@ namespace WizardQuestGUIApp
             this.tile82.Size = new System.Drawing.Size(33, 23);
             this.tile82.TabIndex = 138;
             this.tile82.UseVisualStyleBackColor = true;
-            this.tile82.Click += new System.EventHandler(this.button_Click);
+            this.tile82.Click += new System.EventHandler(this.UserMove);
             // 
             // tile83
             // 
@@ -1051,7 +1052,7 @@ namespace WizardQuestGUIApp
             this.tile83.Size = new System.Drawing.Size(33, 23);
             this.tile83.TabIndex = 139;
             this.tile83.UseVisualStyleBackColor = true;
-            this.tile83.Click += new System.EventHandler(this.button_Click);
+            this.tile83.Click += new System.EventHandler(this.UserMove);
             // 
             // tile84
             // 
@@ -1061,7 +1062,7 @@ namespace WizardQuestGUIApp
             this.tile84.Size = new System.Drawing.Size(33, 23);
             this.tile84.TabIndex = 140;
             this.tile84.UseVisualStyleBackColor = true;
-            this.tile84.Click += new System.EventHandler(this.button_Click);
+            this.tile84.Click += new System.EventHandler(this.UserMove);
             // 
             // tile85
             // 
@@ -1071,7 +1072,7 @@ namespace WizardQuestGUIApp
             this.tile85.Size = new System.Drawing.Size(33, 23);
             this.tile85.TabIndex = 141;
             this.tile85.UseVisualStyleBackColor = true;
-            this.tile85.Click += new System.EventHandler(this.button_Click);
+            this.tile85.Click += new System.EventHandler(this.UserMove);
             // 
             // tile86
             // 
@@ -1081,7 +1082,7 @@ namespace WizardQuestGUIApp
             this.tile86.Size = new System.Drawing.Size(33, 23);
             this.tile86.TabIndex = 142;
             this.tile86.UseVisualStyleBackColor = true;
-            this.tile86.Click += new System.EventHandler(this.button_Click);
+            this.tile86.Click += new System.EventHandler(this.UserMove);
             // 
             // tile87
             // 
@@ -1091,7 +1092,7 @@ namespace WizardQuestGUIApp
             this.tile87.Size = new System.Drawing.Size(33, 23);
             this.tile87.TabIndex = 143;
             this.tile87.UseVisualStyleBackColor = true;
-            this.tile87.Click += new System.EventHandler(this.button_Click);
+            this.tile87.Click += new System.EventHandler(this.UserMove);
             // 
             // tile88
             // 
@@ -1101,7 +1102,7 @@ namespace WizardQuestGUIApp
             this.tile88.Size = new System.Drawing.Size(33, 23);
             this.tile88.TabIndex = 144;
             this.tile88.UseVisualStyleBackColor = true;
-            this.tile88.Click += new System.EventHandler(this.button_Click);
+            this.tile88.Click += new System.EventHandler(this.UserMove);
             // 
             // tile89
             // 
@@ -1111,7 +1112,7 @@ namespace WizardQuestGUIApp
             this.tile89.Size = new System.Drawing.Size(33, 23);
             this.tile89.TabIndex = 145;
             this.tile89.UseVisualStyleBackColor = true;
-            this.tile89.Click += new System.EventHandler(this.button_Click);
+            this.tile89.Click += new System.EventHandler(this.UserMove);
             // 
             // tile90
             // 
@@ -1121,7 +1122,7 @@ namespace WizardQuestGUIApp
             this.tile90.Size = new System.Drawing.Size(33, 23);
             this.tile90.TabIndex = 146;
             this.tile90.UseVisualStyleBackColor = true;
-            this.tile90.Click += new System.EventHandler(this.button_Click);
+            this.tile90.Click += new System.EventHandler(this.UserMove);
             // 
             // tile91
             // 
@@ -1131,7 +1132,7 @@ namespace WizardQuestGUIApp
             this.tile91.Size = new System.Drawing.Size(33, 23);
             this.tile91.TabIndex = 147;
             this.tile91.UseVisualStyleBackColor = true;
-            this.tile91.Click += new System.EventHandler(this.button_Click);
+            this.tile91.Click += new System.EventHandler(this.UserMove);
             // 
             // tile92
             // 
@@ -1141,7 +1142,7 @@ namespace WizardQuestGUIApp
             this.tile92.Size = new System.Drawing.Size(33, 23);
             this.tile92.TabIndex = 148;
             this.tile92.UseVisualStyleBackColor = true;
-            this.tile92.Click += new System.EventHandler(this.button_Click);
+            this.tile92.Click += new System.EventHandler(this.UserMove);
             // 
             // tile93
             // 
@@ -1151,7 +1152,7 @@ namespace WizardQuestGUIApp
             this.tile93.Size = new System.Drawing.Size(33, 23);
             this.tile93.TabIndex = 149;
             this.tile93.UseVisualStyleBackColor = true;
-            this.tile93.Click += new System.EventHandler(this.button_Click);
+            this.tile93.Click += new System.EventHandler(this.UserMove);
             // 
             // tile94
             // 
@@ -1161,7 +1162,7 @@ namespace WizardQuestGUIApp
             this.tile94.Size = new System.Drawing.Size(33, 23);
             this.tile94.TabIndex = 150;
             this.tile94.UseVisualStyleBackColor = true;
-            this.tile94.Click += new System.EventHandler(this.button_Click);
+            this.tile94.Click += new System.EventHandler(this.UserMove);
             // 
             // tile95
             // 
@@ -1171,7 +1172,7 @@ namespace WizardQuestGUIApp
             this.tile95.Size = new System.Drawing.Size(33, 23);
             this.tile95.TabIndex = 151;
             this.tile95.UseVisualStyleBackColor = true;
-            this.tile95.Click += new System.EventHandler(this.button_Click);
+            this.tile95.Click += new System.EventHandler(this.UserMove);
             // 
             // tile96
             // 
@@ -1181,7 +1182,7 @@ namespace WizardQuestGUIApp
             this.tile96.Size = new System.Drawing.Size(33, 23);
             this.tile96.TabIndex = 152;
             this.tile96.UseVisualStyleBackColor = true;
-            this.tile96.Click += new System.EventHandler(this.button_Click);
+            this.tile96.Click += new System.EventHandler(this.UserMove);
             // 
             // tile97
             // 
@@ -1191,7 +1192,7 @@ namespace WizardQuestGUIApp
             this.tile97.Size = new System.Drawing.Size(33, 23);
             this.tile97.TabIndex = 153;
             this.tile97.UseVisualStyleBackColor = true;
-            this.tile97.Click += new System.EventHandler(this.button_Click);
+            this.tile97.Click += new System.EventHandler(this.UserMove);
             // 
             // tile98
             // 
@@ -1201,7 +1202,7 @@ namespace WizardQuestGUIApp
             this.tile98.Size = new System.Drawing.Size(33, 23);
             this.tile98.TabIndex = 154;
             this.tile98.UseVisualStyleBackColor = true;
-            this.tile98.Click += new System.EventHandler(this.button_Click);
+            this.tile98.Click += new System.EventHandler(this.UserMove);
             // 
             // tile99
             // 
@@ -1211,7 +1212,7 @@ namespace WizardQuestGUIApp
             this.tile99.Size = new System.Drawing.Size(33, 23);
             this.tile99.TabIndex = 155;
             this.tile99.UseVisualStyleBackColor = true;
-            this.tile99.Click += new System.EventHandler(this.button_Click);
+            this.tile99.Click += new System.EventHandler(this.UserMove);
             // 
             // tile100
             // 
@@ -1221,13 +1222,23 @@ namespace WizardQuestGUIApp
             this.tile100.Size = new System.Drawing.Size(33, 23);
             this.tile100.TabIndex = 156;
             this.tile100.UseVisualStyleBackColor = true;
-            this.tile100.Click += new System.EventHandler(this.button_Click);
+            this.tile100.Click += new System.EventHandler(this.UserMove);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(311, 413);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 157;
+            this.label1.Text = "label1";
             // 
             // QuestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1016, 644);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.tile100);
             this.Controls.Add(this.tile99);
             this.Controls.Add(this.tile98);
@@ -1459,5 +1470,6 @@ namespace WizardQuestGUIApp
         private System.Windows.Forms.Button tile99;
         private System.Windows.Forms.Button tile100;
         private System.Windows.Forms.Button tile11;
+        private System.Windows.Forms.Label label1;
     }
 }

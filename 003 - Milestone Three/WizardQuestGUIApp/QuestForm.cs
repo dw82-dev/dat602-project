@@ -15,11 +15,12 @@ namespace WizardQuestGUIApp
         private int _userID;
         private string _questName;
         private int _questID;
+        private int _homeTileID;
+        private int _currentTileID;
+        private string _tileName = "";
         private List<Inventory> userInventoryDataSource;
         private List<Score> questScoreDataSource;
         private List<Chat> chatDataSource;
-        private int _xMove;
-        private int _yMove;
         private int[,] _questMap =    { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
                                 { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 },
                                 { 21, 22, 23, 24, 25, 26, 27, 28, 29, 30},
@@ -38,11 +39,14 @@ namespace WizardQuestGUIApp
             _userID = userID;
             _questName = questName;
             GetQuestID();
+            GetHomeTileID();
+            GetCurrentTileID();
             UpdateDisplay();
         }
 
         public void UpdateDisplay()
         {
+            //DisplayCurrentTile();
             QuestScore();
             UserInventory();
             QuestChat();
@@ -53,6 +57,48 @@ namespace WizardQuestGUIApp
             DataAccess dataAccess = new DataAccess();
             dataAccess.GetQuestID(_questName);
             _questID = Convert.ToInt32(DataAccess.QuestID);
+        }
+
+        private void GetHomeTileID()
+        {
+            DataAccess dataAccess = new DataAccess();
+            dataAccess.GetHomeTileID(_userID, _questID);
+            _homeTileID = Convert.ToInt32(DataAccess.HomeTileID);
+        }
+
+        private void GetCurrentTileID()
+        {
+            DataAccess dataAccess = new DataAccess();
+            dataAccess.GetCurrentTileID(_userID, _questID);
+            _currentTileID = Convert.ToInt32(DataAccess.CurrentTileID);
+
+            int questMapID = (_currentTileID - _homeTileID) + 1;
+            string displayTile = (string.Concat("tile", questMapID));
+            DisplayCurrentTile(displayTile);
+
+            //_tileName = displayTile;
+
+            label1.Text = displayTile;
+
+        }
+
+
+        private void DisplayCurrentTile(string displayTile)
+        {
+            if (_tileName != "")
+            {
+                var previousTile = _tileName;
+                var previousTileControl = Controls.Find(previousTile, true).FirstOrDefault() as Button;
+
+                previousTileControl.BackColor = Color.Gray;
+            }
+
+            var tileName = displayTile;
+            var tileControl = Controls.Find(tileName, true).FirstOrDefault() as Button;
+
+            tileControl.BackColor = Color.Blue;
+
+            _tileName = displayTile;
         }
 
         private void QuestScore()
@@ -79,25 +125,25 @@ namespace WizardQuestGUIApp
             chatList.DataSource = chatDataSource;
         }
 
-        private void UserMove(object sender, EventArgs e)
-        {
-            Button questButton = (Button)sender;
-            int x = (Convert.ToInt32(questButton.Text) % 6) + 1;
-            int y = (Convert.ToInt32(questButton.Text) / 6) + 1;
-            DataAccess dataAccess = new DataAccess();
-            dataAccess.UserMove(_questID, _userID, x, y);
+        //private void UserMove(object sender, EventArgs e)
+        //{
+        //    Button questButton = (Button)sender;
+        //    int x = (Convert.ToInt32(questButton.Text) % 6) + 1;
+        //    int y = (Convert.ToInt32(questButton.Text) / 6) + 1;
+        //    DataAccess dataAccess = new DataAccess();
+        //    dataAccess.UserMove(_questID, _userID, x, y);
 
-            if (DataAccess.MoveStatus == "Success")
-            {
-                MessageBox.Show("You have moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                questButton.BackColor = Color.Red;
-            }
-            else if (DataAccess.MoveStatus == "Invalid")
-            {
-                MessageBox.Show("Choose a closer tile.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                questButton.BackColor = Color.Red;
-            }
-        }
+        //    if (DataAccess.MoveStatus == "Success")
+        //    {
+        //        MessageBox.Show("You have moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        questButton.BackColor = Color.Red;
+        //    }
+        //    else if (DataAccess.MoveStatus == "Invalid")
+        //    {
+        //        MessageBox.Show("Choose a closer tile.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        questButton.BackColor = Color.Red;
+        //    }
+        //}
 
         private void leaveQuestButton_Click(object sender, EventArgs e)
         {
@@ -117,7 +163,7 @@ namespace WizardQuestGUIApp
             this.Close();
         }
 
-        private void button_Click(object sender, EventArgs e)
+        private void UserMove(object sender, EventArgs e)
         {
             Button questButton = (Button)sender;
             string input = questButton.Name;
@@ -132,7 +178,7 @@ namespace WizardQuestGUIApp
                 if (DataAccess.MoveStatus == "Success")
                 {
                     MessageBox.Show("You have moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    questButton.BackColor = Color.Blue;
+                    DisplayCurrentTile(input);
                     UpdateDisplay();
                 }
                 else if (DataAccess.MoveStatus == "Invalid")
