@@ -18,6 +18,7 @@ namespace WizardQuestGUIApp
         private int _homeTileID;
         private int _currentTileID;
         private string _tileName = "";
+        private bool _joinStatus;
         private List<Inventory> userInventoryDataSource;
         private List<Score> questScoreDataSource;
         private List<Chat> chatDataSource;
@@ -33,11 +34,12 @@ namespace WizardQuestGUIApp
                                 { 91, 92, 93, 94, 95, 96, 97, 98, 99, 100}};
 
 
-        public QuestForm(int userID, string questName)
+        public QuestForm(int userID, string questName, bool joinStatus)
         {
             InitializeComponent();
             _userID = userID;
             _questName = questName;
+            _joinStatus = joinStatus;
             GetQuestID();
             GetHomeTileID();
             GetCurrentTileID();
@@ -125,25 +127,20 @@ namespace WizardQuestGUIApp
             chatList.DataSource = chatDataSource;
         }
 
-        //private void UserMove(object sender, EventArgs e)
-        //{
-        //    Button questButton = (Button)sender;
-        //    int x = (Convert.ToInt32(questButton.Text) % 6) + 1;
-        //    int y = (Convert.ToInt32(questButton.Text) / 6) + 1;
-        //    DataAccess dataAccess = new DataAccess();
-        //    dataAccess.UserMove(_questID, _userID, x, y);
+        private void CheckQuest()
+        {
+            DataAccess dataAccess = new DataAccess();
+            dataAccess.CheckQuest(_userID, _questID);
 
-        //    if (DataAccess.MoveStatus == "Success")
-        //    {
-        //        MessageBox.Show("You have moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //        questButton.BackColor = Color.Red;
-        //    }
-        //    else if (DataAccess.MoveStatus == "Invalid")
-        //    {
-        //        MessageBox.Show("Choose a closer tile.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //        questButton.BackColor = Color.Red;
-        //    }
-        //}
+            if (DataAccess.QuestStatus == "Death")
+            {
+                MessageBox.Show("Game Over! You did not complete your quest.", "Quest End", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (DataAccess.QuestStatus.EndsWith("!"))
+            {
+                MessageBox.Show(string.Format($"Your quest has ended. {DataAccess.QuestStatus}", "The Quest is WON!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation));
+            }
+        }
 
         private void leaveQuestButton_Click(object sender, EventArgs e)
         {
@@ -172,29 +169,54 @@ namespace WizardQuestGUIApp
 
             if (tileSearch.Item1 != 0 && tileSearch.Item2 != 0)
             {
-                DataAccess dataAccess = new DataAccess();
-                dataAccess.UserMove(_questID, _userID, tileSearch.Item1, tileSearch.Item2);
+                if (_joinStatus == true)
+                {
+                    DataAccess dataAccess = new DataAccess();
+                    dataAccess.UserMove(_questID, _userID, tileSearch.Item1, tileSearch.Item2);
 
-                if (DataAccess.MoveStatus == "Success")
-                {
-                    MessageBox.Show("You have moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    DisplayCurrentTile(input);
-                    UpdateDisplay();
+                    if (DataAccess.MoveStatus == "Success")
+                    {
+                        MessageBox.Show("You have moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DisplayCurrentTile(input);
+                        UpdateDisplay();
+                    }
+                    else if (DataAccess.MoveStatus == "Invalid")
+                    {
+                        MessageBox.Show("Choose a closer tile.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (DataAccess.MoveStatus == "InUse")
+                    {
+                        MessageBox.Show("Someone is on that tile. Try another.", "In Use", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (DataAccess.MoveStatus == "Wait")
+                    {
+                        MessageBox.Show("It's not your turn!", "Wait Your Turn", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
-                else if (DataAccess.MoveStatus == "Invalid")
+                if (_joinStatus == false)
                 {
-                    MessageBox.Show("Choose a closer tile.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (DataAccess.MoveStatus == "InUse")
-                {
-                    MessageBox.Show("Someone is on that tile. Try another.", "In Use", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (DataAccess.MoveStatus == "Wait")
-                {
-                    MessageBox.Show("It's not your turn!", "Wait Your Turn", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DataAccess dataAccess = new DataAccess();
+                    dataAccess.RejoinMove(_questID, _userID, tileSearch.Item1, tileSearch.Item2);
+
+                    if (DataAccess.MoveStatus == "Success")
+                    {
+                        MessageBox.Show("You have moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _joinStatus = true;
+                        DisplayCurrentTile(input);
+                        UpdateDisplay();
+                    }
+                    else if (DataAccess.MoveStatus == "Invalid")
+                    {
+                        MessageBox.Show("Choose a closer tile.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (DataAccess.MoveStatus == "InUse")
+                    {
+                        MessageBox.Show("Someone is on that tile. Try another.", "In Use", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
-            
+
+            CheckQuest();
         }
 
         //private void TileSearch(int[,] mat, int rowMax, int tileID)

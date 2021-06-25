@@ -96,7 +96,7 @@ namespace WizardQuestGUIApp
                 if (DataAccess.QuestStatus == "Success")
                 {
                     MessageBox.Show("Quest Creation Success", "New Quest Active", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    QuestForm questForm = new QuestForm(_userID, questName);
+                    QuestForm questForm = new QuestForm(_userID, questName, true);
                     if (questForm.ShowDialog() == DialogResult.OK)
                     {
                         this.Show();
@@ -126,7 +126,7 @@ namespace WizardQuestGUIApp
                 {
                     this.Hide();
                     MessageBox.Show("Quest joined", "New Quest Active", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    QuestForm questForm = new QuestForm(_userID, joinQuest.QuestName);
+                    QuestForm questForm = new QuestForm(_userID, joinQuest.QuestName, true);
                     if (questForm.ShowDialog() == DialogResult.OK)
                     {
                         this.Show();
@@ -136,7 +136,7 @@ namespace WizardQuestGUIApp
                 {
                     this.Hide();
                     MessageBox.Show("Quest joined, continue your existing quest", "Welcome Back", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    QuestForm questForm = new QuestForm(_userID, joinQuest.QuestName);
+                    QuestForm questForm = new QuestForm(_userID, joinQuest.QuestName, true);
                     if (questForm.ShowDialog() == DialogResult.OK)
                     {
                         this.Show();
@@ -148,7 +148,13 @@ namespace WizardQuestGUIApp
                 }
                 else if (DataAccess.QuestStatus == "InUse")
                 {
+                    this.Hide();
                     MessageBox.Show("Sorry, you need to choose a new tile", "Tile Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    QuestForm questForm = new QuestForm(_userID, joinQuest.QuestName, false);
+                    if (questForm.ShowDialog() == DialogResult.OK)
+                    {
+                        this.Show();
+                    }
                 }
 
                 UpdateDisplay();

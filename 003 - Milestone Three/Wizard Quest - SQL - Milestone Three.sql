@@ -2,6 +2,7 @@ drop database if exists WizardQuest;
 create database WizardQuest;
 use WizardQuest;
 
+-- set autocommit = 0;
 set global transaction isolation level read committed;
 show global variables like '%isolation%';
 
@@ -9,6 +10,18 @@ drop user if exists 'wizard'@'localhost';
 create user 'wizard'@'localhost' identified by '55555';
 grant all on WizardQuest.* to 'wizard'@'localhost';
 
+
+
+
+
+drop procedure if exists errorDianostic;
+delimiter //
+create procedure errorDianostic(in pSQLstate int)
+begin
+	get diagnostics condition 1 pSQLstate = returned_sqlstate;
+	select @sqlstate as 'SQL State', @errno as 'Error Number', @text as 'Message';
+end //
+delimiter ;
 
 
 drop procedure if exists ddlWizardQuestDB;
@@ -475,7 +488,7 @@ begin
 							and TileID <> homeTileID;
 							
                             -- if only player currently in quest, set as active player 
-                            if onlineCount = 0 then
+                            if onlineCount = null then
 								update tblQuest
                                 set ActivePlayer =	(select PlayerNumber
 													from tblSession
@@ -536,8 +549,7 @@ drop procedure if exists userMove;
 delimiter //
 create procedure userMove(pQuestID int, pUserID int, pxPosition int, pyPosition int)
 begin
-	
-    declare currentMapID int default null;
+	declare currentMapID int default null;
     declare homeTileID int default null;
     declare startTileID int default null;
     declare targetTileID int default null;
@@ -545,6 +557,15 @@ begin
     declare currentCount int default null;
     declare nextPlayer int default null;
     
+	declare exit handler for sqlexception
+	begin
+		get diagnostics condition 1 @sqlstate = returned_sqlstate;
+		select @sqlstate as 'SQL State', @errno as 'Error Number', @text as 'Message';
+		call errorDianostic(@sqlstate);
+		rollback;
+end;
+	
+start transaction;
     set currentSessionID = 	(select SessionID
 							from tblSession
                             where UserID = pUserID
@@ -686,17 +707,17 @@ begin
 		select 'Wait' as message; -- not users turn
 	end if;
     
-    -- quest validation users, scores, and assets
-	-- call checkQuest(pUserID, pQuestID, currentMapID);
+    commit;
                                         
 end //
 delimiter ;
 
 drop procedure if exists rejoinMove;
 delimiter //
-create procedure rejoinMove(pSessionID int, pUserID int, pQuestID int, pxPosition int, pyPosition int)
+create procedure rejoinMove(pUserID int, pQuestID int, pxPosition int, pyPosition int)
 begin
 	
+    declare currentSessionID int default null;
     declare currentMapID int default null;
     declare homeTileID int default null;
     declare startTileID int default null;
@@ -704,9 +725,14 @@ begin
     declare currentCount int default null;
     declare nextPlayer int default null;
     
+    set currentSessionID =	(select SessionID
+							from tblSession
+                            where UserID = pUserID
+                            and QuestID = pQuestID);
+    
     set currentMapID =	(select MapID
 						from tblSession
-                        where SessionID = pSessionID
+                        where SessionID = currentSessionID
                         and UserID = pUserID);
 	
     set homeTileID =	(select TileID
@@ -716,7 +742,7 @@ begin
 	
     set startTileID =	(select TileID
 						from tblSession
-                        where SessionID = pSessionID
+                        where SessionID = currentSessionID
                         and UserID = pUserID);	
     
 	if exists	(select *
@@ -731,7 +757,7 @@ begin
                                     where t.MapID = currentMapID
 									and ((t2.xPosition = t.xPosition + 1) or (t2.xPosition = t.xPosition -1) or (t2.xPosition = t.xPosition))
 									and	((t2.yPosition = t.yPosition + 1) or (t2.yPosition = t.yPosition -1) or (t2.yPosition = t.yPosition))
-									and	s.SessionID = pSessionID
+									and	s.SessionID = currentSessionID
 									and	s.UserID = pUserID)) then
                                     
 				set targetTileID =	(select TileID
@@ -815,19 +841,13 @@ begin
 								end if;
 							end loop findNextPlayer;
                             
-							select 'Valid Move' as message;
+							select 'Success' as message;
 				else
-							select 'Tile In Use' as message;
+							select 'InUse' as message;
 				end if;
 	else
-				select 'Invalid Move' as message;
+				select 'Invalid' as message;
     end if;
-    
-    -- quest validation users, scores, and assets
-	call checkQuest(pUserID, QuestID, (select MapID
-										from tblSession
-                                        where UserID = pUserID
-                                        and QuestID = pUserID));
 end //
 delimiter ;
 
@@ -881,6 +901,7 @@ begin
                 set onlineCount =	(select count(*) 
 									from tblSession 
 									where QuestID = pQuestID
+                                    and UserID <> pUserID
                                     and SessionActive = true);
                 
                 -- updates tile for game play
@@ -1046,10 +1067,11 @@ delimiter ;
 
 drop procedure if exists checkQuest
 delimiter //
-create procedure checkQuest(pUserID int, pQuestID int, pMapID int)
+create procedure checkQuest(pUserID int, pQuestID int)
 begin
 	
     declare questScore int default null;
+    declare currentMapID int default null;
     declare assetCount int default null;
     declare questWinner int default null;
     
@@ -1057,12 +1079,17 @@ begin
 						from tblSession
                         where UserID = pUserID
                         and QuestID = pQuestID);
+	
+    set currentMapID =	(select MapID
+						from tblQuest
+                        where UserID = pUserID
+                        and QuestID = pQuestID);
                         
     set assetCount = 	(select count(a.TileID)
 						from tblTileAsset as a
 						join tblTile as t
 						on a.TileID = t.TileID
-						where MapID = pMapID
+						where MapID = currentMapID
 						and a.AssetID <= 4);
 	
     set questWinner =	(select UserID
@@ -1084,7 +1111,7 @@ begin
 						where UserID = pUserID
 						and QuestID = pQuestID);
 				
-		select 'You Died - Your Quest Has Ended' as message;
+		select 'Death' as message; -- player has a negative score and their quest is over
 	end if;
     
     -- checks new score can win and if any assets are left in the quest
@@ -1109,9 +1136,9 @@ begin
         delete from tblQuest
 		where QuestID = pQuestID;
                 
-        select concat('Your Quest has ended, ',	(select UserName
-												from tblUser
-												where UserID = questWinner), ' Wins!') as message;
+        select concat((select UserName
+						from tblUser
+						where UserID = questWinner), ' Wins!') as message;
 	end if;
 end //
 delimiter ;
@@ -1302,3 +1329,5 @@ call dmlWizardQuestDB();
 -- call getUserActiveQuest(1);
 -- call getUserID('Daniel');
 -- call getActiveQuest(1);
+
+-- call userMove(4, 1, 1, 1);

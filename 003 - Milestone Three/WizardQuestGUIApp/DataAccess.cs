@@ -22,6 +22,7 @@ namespace WizardQuestGUIApp
         public static string HomeTileID = "";
         public static string CurrentTileID = "";
         public static string MoveStatus = "";
+        public static string RejoinStatus = "";
 
         public static MySqlConnection MySqlConnection
         {
@@ -155,6 +156,20 @@ namespace WizardQuestGUIApp
             DataAccess.CurrentTileID = (homeTileIDDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
+        public void CheckQuest(int pUserID, int pQuestID)
+        {
+            List<MySqlParameter> parameterList = new List<MySqlParameter>();
+            var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
+            var questID = new MySqlParameter("QuestID", MySqlDbType.Int16);
+            userID.Value = pUserID;
+            questID.Value = pQuestID;
+            parameterList.Add(userID);
+            parameterList.Add(questID);
+
+            var checkQuestDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getCurrentTileID(@UserID, @QuestID)", parameterList.ToArray());
+            DataAccess.QuestStatus = (checkQuestDataSet.Tables[0].Rows[0])["message"].ToString();
+        }
+
         public void NewQuest(int pUserID, string pQuestName)
         {
             List<MySqlParameter> parameterList = new List<MySqlParameter>();
@@ -201,6 +216,26 @@ namespace WizardQuestGUIApp
 
             var userMoveDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call userMove(@QuestID, @UserID, @xPosition, @yPosition)", parameterList.ToArray());
             DataAccess.MoveStatus = (userMoveDataSet.Tables[0].Rows[0])["message"].ToString();
+        }
+
+        public void RejoinMove(int pQuestID, int pUserID, int pxPosition, int pyPosition)
+        {
+            List<MySqlParameter> parameterList = new List<MySqlParameter>();
+            var questID = new MySqlParameter("QuestID", MySqlDbType.Int16);
+            var userID = new MySqlParameter("UserID", MySqlDbType.Int16);
+            var xPosition = new MySqlParameter("xPosition", MySqlDbType.Int16);
+            var yPosition = new MySqlParameter("yPosition", MySqlDbType.Int16);
+            questID.Value = pQuestID;
+            userID.Value = pUserID;
+            xPosition.Value = pxPosition;
+            yPosition.Value = pyPosition;
+            parameterList.Add(questID);
+            parameterList.Add(userID);
+            parameterList.Add(xPosition);
+            parameterList.Add(yPosition);
+
+            var rejoinDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call rejoinMove(@QuestID, @UserID, @xPosition, @yPosition)", parameterList.ToArray());
+            DataAccess.RejoinStatus = (rejoinDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 
         public void UserChat(int pUserID, int pQuestID, string pMessage)
