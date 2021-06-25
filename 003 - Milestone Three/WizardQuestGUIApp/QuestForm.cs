@@ -77,11 +77,6 @@ namespace WizardQuestGUIApp
             int questMapID = (_currentTileID - _homeTileID) + 1;
             string displayTile = (string.Concat("tile", questMapID));
             DisplayCurrentTile(displayTile);
-
-            //_tileName = displayTile;
-
-            label1.Text = displayTile;
-
         }
 
 
@@ -134,11 +129,29 @@ namespace WizardQuestGUIApp
 
             if (DataAccess.QuestStatus == "Death")
             {
+                this.Hide();
                 MessageBox.Show("Game Over! You did not complete your quest.", "Quest End", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult = DialogResult.OK;
+                this.Close();
             }
             else if (DataAccess.QuestStatus.EndsWith("!"))
             {
-                MessageBox.Show(string.Format($"Your quest has ended. {DataAccess.QuestStatus}", "The Quest is WON!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation));
+                this.Hide();
+                MessageBox.Show(string.Format($"Your quest has ended. {DataAccess.QuestStatus}", "The Quest is WON!", MessageBoxButtons.OK, MessageBoxIcon.Information));
+                DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else if (DataAccess.QuestStatus.EndsWith("Valid"))
+            {
+                MessageBox.Show("You have moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                UpdateDisplay();
+            }
+            else if (DataAccess.QuestStatus.EndsWith("NotFound"))
+            {
+                this.Hide();
+                MessageBox.Show(string.Format($"Your quest has ended. You have been bested!", "Quest Over!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation));
+                DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
 
@@ -176,9 +189,8 @@ namespace WizardQuestGUIApp
 
                     if (DataAccess.MoveStatus == "Success")
                     {
-                        MessageBox.Show("You have moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         DisplayCurrentTile(input);
-                        UpdateDisplay();
+                        CheckQuest();
                     }
                     else if (DataAccess.MoveStatus == "Invalid")
                     {
@@ -215,8 +227,6 @@ namespace WizardQuestGUIApp
                     }
                 }
             }
-
-            CheckQuest();
         }
 
         //private void TileSearch(int[,] mat, int rowMax, int tileID)

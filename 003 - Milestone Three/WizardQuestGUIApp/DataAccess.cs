@@ -166,7 +166,7 @@ namespace WizardQuestGUIApp
             parameterList.Add(userID);
             parameterList.Add(questID);
 
-            var checkQuestDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call getCurrentTileID(@UserID, @QuestID)", parameterList.ToArray());
+            var checkQuestDataSet = MySqlHelper.ExecuteDataset(DataAccess.MySqlConnection, "call checkQuest(@UserID, @QuestID)", parameterList.ToArray());
             DataAccess.QuestStatus = (checkQuestDataSet.Tables[0].Rows[0])["message"].ToString();
         }
 

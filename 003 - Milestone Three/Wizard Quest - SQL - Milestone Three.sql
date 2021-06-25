@@ -1074,6 +1074,7 @@ begin
     declare currentMapID int default null;
     declare assetCount int default null;
     declare questWinner int default null;
+    declare userCount int default null;
     
     set questScore = 	(select Score
 						from tblSession
@@ -1081,9 +1082,8 @@ begin
                         and QuestID = pQuestID);
 	
     set currentMapID =	(select MapID
-						from tblQuest
-                        where UserID = pUserID
-                        and QuestID = pQuestID);
+						from tblMap
+                        where QuestID = pQuestID);
                         
     set assetCount = 	(select count(a.TileID)
 						from tblTileAsset as a
@@ -1095,51 +1095,76 @@ begin
     set questWinner =	(select UserID
 						from tblSession
 						where QuestID = pQuestID
-						and Score >= 10000);
+						and Score >= 5000);
+                        
+	set userCount =		(select count(*) 
+						from tblSession 
+						where QuestID = pQuestID
+                        and UserID <> pUserID
+                        and Score > 0);
 	
-    -- checks if user died and leaves quest 
-    if questScore < 0 then
-        update tblSession
-		set SessionActive = false
-		where UserID = pUserID
-		and QuestID = pQuestID;
-				
-		update tblTile
-		set TileActive = true
-		where TileID = 	(select TileID
-						from tblSession
-						where UserID = pUserID
-						and QuestID = pQuestID);
-				
-		select 'Death' as message; -- player has a negative score and their quest is over
+    -- checks if quest is current
+    if exists 	(select QuestID
+				from tblQuest
+                where QuestID = pQuestID) then
+                
+				-- checks if user died and leaves quest 
+				if questScore < 0 then
+					update tblSession
+					set SessionActive = false
+					where UserID = pUserID
+					and QuestID = pQuestID;
+							
+					update tblTile
+					set TileActive = true
+					where TileID = 	(select TileID
+									from tblSession
+									where UserID = pUserID
+									and QuestID = pQuestID);
+							
+					select 'Death' as message; -- player has a negative score and their quest is over
+					
+					if userCount = 0 then -- deletes quest if they are the last player
+						delete from tblQuest
+						where QuestID = pQuestID;
+					end if;
+                    
+				  
+                    -- checks new score can win and if any assets are left in the quest
+				elseif	questWinner is not null or assetCount <= 0  then
+						-- get winner if null and no more assets on map
+						set questWinner = 	(select UserID
+											from tblSession
+											where QuestID = pQuestID
+											and Score = (select max(Score)
+														from tblSession
+														where QuestID = pQuestID));
+											
+						-- update all users total score from quest if value is positive
+						update tblUser as u
+						join tblSession as s
+						on u.UserID = s.UserID
+						set u.TotalScore = u.TotalScore + s.Score
+						where s.QuestID = pQuestID
+						and s.Score > 0;
+						
+						-- end quest
+						delete from tblQuest
+						where QuestID = pQuestID;
+								
+						select concat((select UserName
+										from tblUser
+										where UserID = questWinner), ' Wins!') as message;
+					else
+                    
+						select 'Valid' as message; -- Quest can  continue
+                        
+					end if;
+        
+	else
+			select 'NotFound' as message; -- quest has already ended
 	end if;
     
-    -- checks new score can win and if any assets are left in the quest
-    if	questWinner is not null or assetCount <= 0  then
-		-- get winner if null and no more assets on map
-		set questWinner = 	(select UserID
-							from tblSession
-							where QuestID = pQuestID
-							and Score = (select max(Score)
-										from tblSession
-										where QuestID = pQuestID));
-                            
-        -- update all users total score from quest if value is positive
-        update tblUser as u
-        join tblSession as s
-        on u.UserID = s.UserID
-        set u.TotalScore = u.TotalScore + s.Score
-        where s.QuestID = pQuestID
-        and s.Score > 0;
-        
-        -- end quest
-        delete from tblQuest
-		where QuestID = pQuestID;
-                
-        select concat((select UserName
-						from tblUser
-						where UserID = questWinner), ' Wins!') as message;
-	end if;
 end //
 delimiter ;
 
@@ -1331,3 +1356,5 @@ call dmlWizardQuestDB();
 -- call getActiveQuest(1);
 
 -- call userMove(4, 1, 1, 1);
+
+-- call checkquest(1, 1);
