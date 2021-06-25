@@ -197,14 +197,12 @@ namespace WizardQuestGUIApp
         private void administrationButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            AdministrationForm administrationForm = new AdministrationForm();
-            //administrationForm.QuestSelectionForm = this;
+            AdministrationForm administrationForm = new AdministrationForm(_userID);
             if (administrationForm.ShowDialog() == DialogResult.OK)
             {
                 this.Show();
                 UpdateDisplay();
-            }
-            //this.Visible = false;
+            }            
         }
 
         private void newQuestButton_Click(object sender, EventArgs e)

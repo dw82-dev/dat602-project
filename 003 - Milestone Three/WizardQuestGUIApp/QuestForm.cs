@@ -229,21 +229,6 @@ namespace WizardQuestGUIApp
             }
         }
 
-        //private void TileSearch(int[,] mat, int rowMax, int tileID)
-        //{
-        //    // Traverse through the map
-        //    for (int newX = 0; newX < rowMax; newX++)
-        //    {
-        //        for (int newY = 0; newY < rowMax; newY++)
-
-        //            // When the tileID is found
-        //            if (mat[newX, newY] == tileID)
-        //            {
-
-        //            }
-        //    }
-        //}
-
         public Tuple<int, int> TileSearch(int[,] mat, int rowMax, int tileID)
         {
             int xMove;

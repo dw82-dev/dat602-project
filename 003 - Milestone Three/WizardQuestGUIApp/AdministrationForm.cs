@@ -15,10 +15,12 @@ namespace WizardQuestGUIApp
         public Form QuestSelectionForm { get; set; }
         private List<ActiveQuest> activeQuestDataSource;
         private List<User> globalUsersDataSource;
+        private int _administratorID;
 
-        public AdministrationForm()
+        public AdministrationForm(int administratorID)
         {
             InitializeComponent();
+            _administratorID = administratorID;
             UpdateDisplay();
         }
 
@@ -88,24 +90,33 @@ namespace WizardQuestGUIApp
         private void deleteButton_Click(object sender, EventArgs e)
         {
             User user = (User)globalUserData.SelectedRows[0].DataBoundItem;
-            var result = MessageBox.Show(string.Format($"Are you sure you want to delete the user {user.Username}?"), "Delete User?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (result == DialogResult.Yes)
+            if (user.UserID != _administratorID)
             {
-                DataAccess dataAccess = new DataAccess();
-                dataAccess.AdministratorDelete(user.UserID);
+                var result = MessageBox.Show(string.Format($"Are you sure you want to delete the user {user.Username}?"), "Delete User?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (DataAccess.AdministrationStatus == "Success")
+                if (result == DialogResult.Yes)
                 {
-                    MessageBox.Show("Delete Success", "User Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (DataAccess.AdministrationStatus == "UserID")
-                {
-                    MessageBox.Show("Your Wizard Quest UserID is invalid, please try again.", "Invalid UserID", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    DataAccess dataAccess = new DataAccess();
+                    dataAccess.AdministratorDelete(user.UserID);
 
-                UpdateDisplay();
+                    if (DataAccess.AdministrationStatus == "Success")
+                    {
+                        MessageBox.Show("Delete Success", "User Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (DataAccess.AdministrationStatus == "UserID")
+                    {
+                        MessageBox.Show("That Wizard Quest UserID is invalid, please try again.", "Invalid UserID", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    UpdateDisplay();
+                }
             }
+            else
+            {
+                MessageBox.Show("You are unable to deleted you own account.", "Invalid UserID", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void killQuestButton_Click(object sender, EventArgs e)

@@ -1262,7 +1262,10 @@ create procedure getActiveQuest(in pUserID int)
 begin
 	select QuestID, QuestName
     from tblQuest
-    where QuestStatus = true;
+    where QuestStatus = true
+    and QuestID <> (select QuestID
+					from tblSession
+                    where UserID = pUserID);
 end //
 delimiter ;
 
@@ -1340,21 +1343,3 @@ delimiter ;
 
 call ddlWizardQuestDB();
 call dmlWizardQuestDB();
-
-
--- call leaveQuest(2, 1);
-
--- call userMove(1, 2, 1, 2);
--- call leaveQuest(2, 1);
--- call userMove(4, 1, 1, 2);
--- call joinQuest(2, 1);
-
--- call testmoves();
-
--- call getUserActiveQuest(1);
--- call getUserID('Daniel');
--- call getActiveQuest(1);
-
--- call userMove(4, 1, 1, 1);
-
--- call checkquest(1, 1);
