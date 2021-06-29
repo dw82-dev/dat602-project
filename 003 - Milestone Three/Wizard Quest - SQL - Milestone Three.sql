@@ -1260,12 +1260,16 @@ drop procedure if exists getActiveQuest;
 delimiter //
 create procedure getActiveQuest(in pUserID int)
 begin
-	select QuestID, QuestName
-    from tblQuest
-    where QuestStatus = true
-    and QuestID <> (select QuestID
-					from tblSession
-                    where UserID = pUserID);
+	select q.QuestID, q.QuestName
+	from tblQuest as q
+	join tblSession as s
+		where not exists
+			(select *
+			from tblSession as s2
+			where s2.UserID = 1
+			and q.QuestID = s2.QuestID)
+	and q.QuestStatus = true
+	group by QuestName;
 end //
 delimiter ;
 
@@ -1274,12 +1278,13 @@ delimiter //
 create procedure getUserActiveQuest(in pUserID int)
 begin
     select QuestID, QuestName
-    from tblQuest
-    where QuestStatus = true
-    and QuestID  in	(select QuestID
-					from tblSession
-                    where UserID = pUserID
-                    and Score >= 0);
+	from tblQuest
+	join tblSession
+	using (QuestID)
+	where UserID = pUserID
+	and Score >= 0
+	and QuestStatus = true
+	group by QuestName;
 end //
 delimiter ; 
 
